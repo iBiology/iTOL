@@ -1023,7 +1023,7 @@ class TOL(object):
             print('Warning!!! No ID was provided!')
             print('The tree will not be associated with any account and will be deleted after 30 days!')
         
-        respond = requests.post(UPLOAD_URL, args, files={'zipFile': open(zfile, 'rb')})
+        respond = requests.post(UPLOAD_URL, data=args, files={'zipFile': open(zfile, 'rb')})
         info = respond.text
         print(info)
         
@@ -1042,15 +1042,15 @@ class TOL(object):
             
         return treeID, url
     
-    def download(self, treeID='', format='pdf', outfile='', **kwargs):
+    def download(self, treeID='', outfile='', format='pdf', **kwargs):
         """
         Download (or export) a tree from ITOL server (batch download).
         
         :param treeID: str, ITOL tree ID which will be exported.
         :param format: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
         newick, nexus and phyloxml for text formats.
-        :param outfile:
-        :param kwargs:
+        :param outfile: str, path of the output file.
+        :param kwargs: optional parameters.
         :return:
         """
         if treeID:
@@ -1075,7 +1075,7 @@ class TOL(object):
         args['tree'] = treeID
         args['format'] = format
         
-        respond = requests.get(DOWNLOAD_URL, args)
+        respond = requests.get(DOWNLOAD_URL, params=args)
         info = respond.text
         code = info.split(':')[0]
         if code == 'ERROR':
