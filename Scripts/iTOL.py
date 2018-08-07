@@ -153,8 +153,8 @@ if __name__ == '__main__':
                                        'Graphical formats: svg, eps, pdf and png. '
                                        'Text formats: newick, nexus and phyloxml.', default='pdf')
     parse.add_argument('-outfile', help='Path of the output file.')
-    
-    args, unkonwn = parse.parse_known_args()
+
+    args, unknown = parse.parse_known_args()
 
     mode, treefile, zfile, tn, uploadID = args.mode, args.treefile, args.zipfile, args.treename, args.uploadID
     pn, tdes, treeID = args.projectname, args.treedescription, args.treeID
@@ -164,10 +164,10 @@ if __name__ == '__main__':
         upload(treefile=treefile, zfile=zfile, treename=tn, uploadID=uploadID, projectname=pn, treedescription=tdes)
     elif mode == 'download':
         kwargs = {}
-        for i, item in enumerate(unkonwn):
+        for i, item in enumerate(unknown):
             if item.startswith('-'):
                 try:
-                    kwargs[item[1:]] = unkonwn[i + 1]
+                    kwargs[item[1:]] = unknown[i + 1]
                 except IndexError:
                     error('No value provided to optional parameter {}.'.format(item[1:]))
                 except KeyError:
