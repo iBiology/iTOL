@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Python API for phylogenetic tree visualization in Interactive Tree of Life (iTOL, http://iTOL.embl.de).
+Python API for phylogenetic tree visualization in Interactive Tree of Life (ITOL, http://iTOL.embl.de).
 
 This API allows user to quickly upload trees to iTOL and export uploaded trees using simple function calls within Python
 IDE or script, and the same simple tasks can also be done from command line by invoking the corresponding options. Any
@@ -23,11 +23,11 @@ DOWNLOAD_URL = "http://itol.embl.de/batch_downloader.cgi"
 
 def upload(treefile='', zipfile='', treename='', ID='', projectname='', treedescription=''):
     """
-    Handling tree uploading to iTOL.
+    Handling tree upload to iTOL.
 
     :param treefile: str, filename of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
     :param zipfile: str, a ZIP archive containing the tree and all other dataset and annotation files.
-    :param treename: str, if not provided, the tree file name (basename without extension) will be used instead.
+    :param treename: str, if not provided, the tree file name (basename without extension) will be used.
     :param ID: str, your upload ID, which is generated when you enable batch uploading in your account.
     :param projectname: str, required if ID is specified, case sensitive, and should be unique in your account.
     :param treedescription: str, description of your tree, ignored if ID is not specified.
@@ -55,9 +55,9 @@ def upload(treefile='', zipfile='', treename='', ID='', projectname='', treedesc
                 with ZipFile(zf, 'w') as z:
                     z.write(tf, arcname=basename)
             else:
-                raise ValueError('Invalid tree file: {}.'.format(treefile))
+                raise ValueError('Invalid tree file {} (not a file or does not exist).'.format(treefile))
         else:
-            raise TypeError('Argument treefile should be a string.')
+            raise TypeError('Argument treefile should be a string for the path of the tree file.')
     elif zipfile:
         if isinstance(zipfile, str):
             if os.path.isfile(zipfile):
@@ -122,16 +122,17 @@ def download(treeID, format='pdf', **kwargs):
     """
     Handling tree downloading (or exporting) from iTOL.
     
-    :param treeID: str or int, iTOL tree ID which will be exported.
-    :param format: str, output file format. These values are supported: svg, eps, pdf and png.
+    :param treeID: str, iTOL tree ID which will be exported.
+    :param format: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
+    newick, nexus and phyloxml for text formats.
     :param kwargs: optional parameters.
     :return: file path of the output, in the form of treeID.format.
     """
     
-    if isinstance(treeID, (int, str)):
+    if isinstance(treeID, str):
         treeID = str(treeID)
     else:
-        raise TypeError('Argument treeID should be a string or integer pointing to a iTOL tree ID.')
+        raise TypeError('Invalid treeID, argument treeID should be a string pointing to a iTOL tree ID.')
     
     if isinstance(format, str):
         format = format.lower()
@@ -161,11 +162,12 @@ def _sd(data, separator):
     """
     Private function for handling separator and data block
     
-    :param data: nested tuple or a list. Each inner element should have at least 3 elements which define the node,
+    :param data: nested tuple or list. Each inner element should have at least 3 elements which define the node,
     type and color.
     :param separator: the separator which is used to delimit the setting text (tab, space or comma), default: comma.
-    Note: Not like writing iTOL setting file, the name of separator here is case insensitive. You should always keep
-    in mind that depend on your data, separator does matter.
+    
+    Note: Unlike writing iTOL setting file manually, the name of the separator here is case insensitive. However, you
+    should always keep in mind that depend on your data, separator does matter.
     :return: formatted string.
     """
 
@@ -245,37 +247,44 @@ class TOL(object):
     about the rest arguments, more details can be found on iTOL help page or in annotation template files.
     """
 
-    def __init__(self, treefile, wd=''):
+    def __init__(self, treefile, wd='iTOL'):
         """
-        Initialize the class, check the treefile and set a work directory.
+        Initialize the class, check the treefile and set the work directory.
 
         :param treefile: str, name of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
-        :param wd: str, path of work directory, without setting, base directory of tree file will be used.
-
+        :param wd: str, path of work directory, without setting, a directory named iTOL in current work directory
+        will be created and used.
         """
-        if isinstance(treefile, str):
-            if os.path.isfile(treefile):
-                self.tree = treefile
-            else:
-                raise ValueError('Invalid tree file: {}.'.format(treefile))
-        else:
-            raise TypeError('Argument treefile should be a string.')
+        
+        if not isinstance(treefile, str):
+            raise TypeError('Invalid treefile {}, argument treefile should be a string.'.format(treefile))
+        
+        if not os.path.isfile(treefile):
+            raise ValueError('Invalid treefile {} (not a file or does not exist).'.format(treefile))
+
+        tree = os.path.abspath(treefile)
         
         if wd:
-            if isinstance(wd, str):
-                if os.path.isdir(wd):
-                    self.wd = wd
-                else:
-                    try:
-                        os.mkdir(wd)
-                        self.wd = wd
-                    except OSError:
-                        raise ValueError('Invalid work directory (wd) and directory can not be created.')
-            else:
-                raise TypeError('Argument wd should be a string.')
+            if not isinstance(wd, str):
+                raise TypeError('Invalid work directory (wd) {}, argument wd should be a string.')
         else:
-            self.wd = os.path.dirname(treefile)
-    
+            wd = os.path.join(os.getcwd(), 'iTOL')
+            
+        if not os.path.isdir(wd):
+            try:
+                os.mkdir(wd)
+            except OSError:
+                raise ValueError('Invalid work directory (wd) {}, directory cannot be created.'.format(wd))
+            
+        wd = os.path.abspath(wd)
+        
+        if wd != os.path.dirname(tree):
+            name = os.path.join(wd, 'tree.jplace') if tree.endswith('.jplace') else os.path.join(wd, 'iTOL.tree.txt')
+            tree = name if os.path.isfile(name) else shutil.copy(tree, name)
+            
+        self.wd, self.tree = wd, tree
+        self.treeID, self.url = None, None
+        
     def color(self, data, separator='comma', outfile='color.txt', **kwargs):
         """
         Handling branch colors and styles, colored ranges and label colors/front style (TREE_COLORS annotation file).
@@ -979,154 +988,88 @@ class TOL(object):
     
         pass
 
-    def upload(self, zipfile='tree.zip', treename='', ID='', projectname='', treedescription=''):
+    def upload(self, treename='', uploadID='', projectname='', treedescription=''):
 
         """
-        Handling batch upload.
+        Pack tree file and all notation files (text files ending in .txt) inside work directory into a zip file
+        and upload the zip file to ITOL server (batch upload).
 
-        :param zipfile: str, a ZIP archive containing the tree and all other dataset and annotation files. A newest
-        ZIP archive will be generated in work directory every time you call this method.
         :param treename: str, if not provided, the tree file name (basename without extension) will be used instead.
-        :param ID: str or int, your upload ID, which is generated when you enable batch uploading in your account. If an
+        :param uploadID: str, your upload ID, which is generated when you enable batch uploading in your account. If an
         uploadID is not provided, the tree will not be associated with any account, and will be deleted after 30 days.
         :param projectname: str, required if ID is specified, case sensitive, and should be unique in your account.
         :param treedescription: str, description of your treee, ignored if ID is not specified.
 
-        Note: argument treename, ID, projectname, and treedescription assigned here will over-write their corresponding
-        values specified before.
+        Note: A new ZIP archive (named iTOL.tree.zip) will be automatically generated in work directory every time you
+        call this method.
         """
 
         args = {}
-        if isinstance(zipfile, str):
-            zipfile = os.path.join(self.wd, zipfile)
-            with ZipFile(zipfile, 'w') as zf:
-                for f in os.listdir(self.wd):
-                    if f.endswith('.txt') or f.endswith('.tree') or f.endswith('.jplace'):
-                        zf.write(os.path.join(self.wd, f), arcname=f)
-        else:
-            raise ValueError('Argument zipfile should be a string representing relative name of a zip archive.')
+        zfile = os.path.join(self.wd, 'iTOL.tree.zip')
+        with ZipFile(zfile, 'w') as zf:
+            for f in os.listdir(self.wd):
+                if f.endswith('.txt') or f.endswith('.tree') or f.endswith('.jplace'):
+                    zf.write(os.path.join(self.wd, f), arcname=f)
 
-        treename = treename if treename else self.tn
-        tn, identifier, pn, td = self._options(self.tree, treename, ID, projectname, treedescription)
-        args['treeName'] = tn or self.tn
-        args['uploadID'] = identifier or self.id
-        args['projectName'] = pn or self.pn
-        args['treeDescription'] = td or self.td
+        args['treeName'] = treename if treename else os.path.basename(self.tree)
+        if uploadID:
+            args['uploadID'] = uploadID
+        if projectname:
+            args['projectName'] = projectname
+        if treedescription:
+            args['treeDescription'] = treedescription
 
         if not args['uploadID']:
-            print('\nWarning!!! No ID was provided!')
+            print('Warning!!! No ID was provided!')
             print('The tree will not be associated with any account and will be deleted after 30 days!')
         
-        respond = requests.post(UPLOAD_URL, args, files={'zipFile': open(zipfile, 'rb')})
+        respond = requests.post(UPLOAD_URL, args, files={'zipFile': open(zfile, 'rb')})
         info = respond.text
         print(info)
+        
         if info.startswith('SUCCESS'):
             code, treeID = info.split(': ')
             self.treeID = treeID
-            print('\nTree upload successfully and you can access your tree using the following iTOL tree ID:')
+            print('Tree upload successfully and you can access your tree using the following iTOL tree ID:')
             print('\t{}'.format(treeID))
             
             url = 'https://itol.embl.de/tree/{}'.format(treeID)
             self.url = url
-            print('\nYou can also view your tree in browser using the following URL: \n\t{}'.format(url))
+            print('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
         else:
-            print('\nTree upload failed due to the following reason:\n\t{}'.format(info))
+            print('Tree upload failed due to the following reason:\n\t{}'.format(info))
             sys.exit(1)
             
-        return treeID
-
-    # def download(self, treeID='', format='png', outfile='', perl='', **kwargs):
-    #     """
-    #     Handling batch download
-    #
-    #     :param treeID: string, ID which will be exported. If you already provided this when you substance the class,
-    #     there is no need to assign it again. Otherwise, ValueError will be raised.
-    #     :param format: string, output file format. The following values are supported: svg, eps, pdf and png.
-    #     :param outfile: string, output file name. If not provided, the tree file name will be used and output file
-    #     format will be the file extension.
-    #     :param perl: string, path for perl on your system if it is not installed system-widely.
-    #     :param kwargs: keyword arguments, optional parameters.
-    #         See http://itol.embl.de/help.cgi#bExOpt for more details.
-    #     """
-    #
-    #     args = locals()
-    #     for arg in ('self', 'treeID', 'outfile', 'perl'):
-    #         args.pop(arg)
-    #
-    #     if treeID:
-    #         if isinstance(treeID, str):
-    #             args['tree'] = treeID
-    #         else:
-    #             raise ValueError('Argument treeID should be a string!')
-    #     else:
-    #         raise ValueError('No tree ID was provided!')
-    #
-    #     if isinstance(format, str):
-    #         FORMATS = ('svg', 'eps', 'pdf', 'png')
-    #         if format not in FORMATS:
-    #             raise ValueError('Argument format should be one of the following string: {}'.format(', '.join(FORMATS)))
-    #     else:
-    #         raise ValueError('Argument format should be a string')
-    #
-    #     if outfile:
-    #         if isinstance(outfile, str):
-    #             args['outFile'] = outfile
-    #         else:
-    #             raise ValueError('Argument outfile should be a string!')
-    #     else:
-    #         if len(self.tree) > 8:
-    #             if self.tree[-8:] == 'tree.txt':
-    #                 args['outFile'] = ''.join([self.tree[:-8], format])
-    #             elif self.tree[-3:] == 'txt':
-    #                 args['outFile'] = ''.join([self.tree[:-3], format])
-    #             else:
-    #                 args['outFile'] = '.'.join([self.tree, format])
-    #         else:
-    #             args['outFile'] = '.'.join([self.tree, format])
-    #
-    #     if perl:
-    #         if not isinstance(perl, str):
-    #             raise ValueError('Argument perl should be a string representing the path of perl on your system!')
-    #     else:
-    #         perl = _perl()
-    #     perl = os.path.abspath(perl.decode('ascii').strip())
-    #
-    #     kw = args['kwargs']
-    #     args.pop('kwargs')
-    #     if kw:
-    #         args.update(kw)
-    #
-    #     cgi = ['='.join([k, str(v)]) for k, v in args.items() if v]
-    #
-    #     loader = os.path.join(self.wd, 'download.cgi')
-    #     with open(loader, 'w') as out:
-    #         out.write('\n'.join(cgi))
-    #
-    #     downloader = os.path.join(self.wd, 'downloader.pl')
-    #     with open(downloader, 'w') as out:
-    #         out.write('\n'.join([''.join(['#!', perl]), DOWNLOADER]))
-    #
-    #     info = subprocess.check_output([perl, downloader, loader])
-    #     print(info)
-        # return args
+        return treeID, url
     
     def download(self, treeID='', format='pdf', outfile='', **kwargs):
+        """
+        Download (or export) a tree from ITOL server (batch download).
+        
+        :param treeID: str, ITOL tree ID which will be exported.
+        :param format: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
+        newick, nexus and phyloxml for text formats.
+        :param outfile:
+        :param kwargs:
+        :return:
+        """
         if treeID:
-            if isinstance(treeID, (int, str)):
+            if isinstance(treeID, str):
                 treeID = str(treeID)
             else:
-                raise TypeError('Argument treeID accepts a string or integer pointing to a iTOL tree ID.')
+                raise TypeError('Invalid treeID, argument treeID accepts a string pointing to a iTOL tree ID.')
         elif self.treeID:
             treeID = self.treeID
         else:
-            raise ValueError('None tree ID was assigned. Please upload a tree or assign a treeID in download method.')
+            raise ValueError('No treeID provided, please upload a tree first or proved a treeID.')
         
         if isinstance(format, str):
             format = format.lower()
-            if format not in ['svg', 'eps', 'pdf', 'png']:
-                raise ValueError("Invalid output format. Supported formats: 'eps', 'svg', 'pdf', 'png'")
+            formats = ['svg', 'eps', 'pdf', 'png', 'newick', 'nexus', 'phyloxml']
+            if format not in formats:
+                raise ValueError("Invalid format. Supported formats: \n\t{}.".format(', '.join(formats)))
         else:
-            raise TypeError('Argument format accepts a string representing output format.')
+            raise TypeError('Invalid output format, argument format accepts a string representing output format.')
 
         args = kwargs
         args['tree'] = treeID
@@ -1136,21 +1079,16 @@ class TOL(object):
         info = respond.text
         code = info.split(':')[0]
         if code == 'ERROR':
-            print('\nTree download failed due to the following reason:\n\t{}'.format(info))
+            print('Tree download failed due to the following reason:\n\t{}'.format(info))
             sys.exit(1)
         else:
-            outfile = outfile if outfile else os.path.join(self.wd, '{}.{}'.format(self.tn, format))
+            outfile = outfile if outfile else os.path.join(self.wd, 'iTOL.download.{}'.format(format))
             with open(outfile, 'wb') as out:
                 out.write(respond.content)
-            print('\nTree download successfully and has been saved to:\n\t{}'.format(outfile))
+            print('Tree download successfully and data has been saved to:\n\t{}'.format(outfile))
         return outfile
     
         
 if __name__ == '__main__':
     pass
-    tree = TOL(r"C:\Users\tianz\OneDrive\mammals\tree.sci.plain", wd=r"C:\Users\tianz\Desktop\testing")
-    tree.color([('Homo_sapiens', 'label', '#0000ff')])
-    tree.upload(treename='m20', ID='cPwrzvwKGZSUBpEwjbx3jA', projectname='Sample', treedescription='Mam-20')
-    tree.download()
-    print(tree.treeID)
-    print(tree.url)
+    
