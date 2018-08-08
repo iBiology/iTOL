@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Python API for phylogenetic tree visualization in Interactive Tree of Life (ITOL, http://iTOL.embl.de).
+Python API for phylogenetic tree visualization in Interactive tree of Life (ITOL, http://iTOL.embl.de).
 
 This API allows user to quickly upload trees to iTOL and export uploaded trees using simple function calls within Python
 IDE or script, and the same simple tasks can also be done from command line by invoking the corresponding options. Any
@@ -12,7 +12,7 @@ thing more than simply upload and export trees can be done by initializing the T
 import os
 import sys
 import shutil
-from zipfile import ZipFile
+from zipfile import ZipFile, is_zipfile
 import requests
 
 
@@ -91,7 +91,7 @@ def _args(args, data, separator, outfile, tag, wd):
 
 class TOL(object):
     """
-    Handling tree visualization in Interactive Tree of Life (iTOL, http://iTOL.embl.de).
+    Handling tree visualization in Interactive tree of Life (iTOL, http://iTOL.embl.de).
     
     Method upload handles upload tree to iTOL and download handles figure download (or export). All other methods are
     designed to generate annotation files.
@@ -110,22 +110,36 @@ class TOL(object):
     about the rest arguments, more details can be found on iTOL help page or in annotation template files.
     """
 
-    def __init__(self, treefile, wd='iTOL'):
+    def __init__(self, tfile='', zfile='', wd='iTOL'):
         """
         Initialize the class, check the treefile and set the work directory.
 
-        :param treefile: str, name of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
+        :param tfile: str, path of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
+        :param zfile: str, path of a ZIP file contains a tree file and other datasets or notation files.
         :param wd: str, path of work directory, without setting, a directory named iTOL in current work directory
         will be created and used.
         """
         
-        if not isinstance(treefile, str):
-            raise TypeError('Invalid treefile {}, argument treefile should be a string.'.format(treefile))
-        
-        if not os.path.isfile(treefile):
-            raise ValueError('Invalid treefile {} (not a file or does not exist).'.format(treefile))
+        if tfile:
+            if not isinstance(tfile, str):
+                raise TypeError('Invalid tfile {}, argument tfile should be a string.'.format(tfile))
+            
+            if not os.path.isfile(tfile):
+                raise ValueError('Invalid tfile {} (not a file or does not exist).'.format(tfile))
 
-        tree = os.path.abspath(treefile)
+            tree = os.path.abspath(tfile)
+        elif zfile:
+            if not isinstance(zfile, str):
+                raise TypeError('Invalid zfile {}, argument zfile should be a string.'.format(zfile))
+    
+            if not os.path.isfile(zfile):
+                raise ValueError('Invalid zfile {} (not a file or does not exist).'.format(zfile))
+            
+            if not is_zipfile(zfile):
+                raise ValueError('Invalid zfile {} (not a ZIP file).'.format(zfile))
+            tree = os.path.abspath(zfile)
+        else:
+            raise ValueError('Neither tree file nor ZIP file was provided.')
         
         if wd:
             if not isinstance(wd, str):
@@ -142,8 +156,11 @@ class TOL(object):
         wd = os.path.abspath(wd)
         
         if wd != os.path.dirname(tree):
-            name = os.path.join(wd, 'tree.jplace') if tree.endswith('.jplace') else os.path.join(wd, 'iTOL.tree.txt')
-            tree = name if os.path.isfile(name) else shutil.copy(tree, name)
+            if is_zipfile(tree):
+                tree = shutil.copy(tree, os.path.join(wd, os.path.basename(tree)))
+            else:
+                name = os.path.join(wd, 'iTOL.tree.txt')
+                tree = name if os.path.isfile(name) else shutil.copy(tree, name)
             
         self.wd, self.tree = wd, tree
         self.treeID, self.url = None, None
@@ -851,47 +868,55 @@ class TOL(object):
     
         pass
 
-    def upload(self, treename='', uploadID='', projectname='', treedescription=''):
+    def upload(self, tn='', uid='', pn='', td='', folder=False):
 
         """
-        Pack tree file and all notation files (text files ending in .txt) inside work directory into a zip file
+        Zip tree file and all notation files (text files have .txt extension) inside work directory into a zip file
         and upload the zip file to ITOL server (batch upload).
 
-        :param treename: str, if not provided, the tree file name (basename without extension) will be used instead.
-        :param uploadID: str, your upload ID, which is generated when you enable batch uploading in your account. If an
+        :param tn: str, if not provided, the tree file name (basename without extension) will be used instead.
+        :param uid: str, your upload ID, which is generated when you enable batch uploading in your account. If an
         uploadID is not provided, the tree will not be associated with any account, and will be deleted after 30 days.
-        :param projectname: str, required if ID is specified, case sensitive, and should be unique in your account.
-        :param treedescription: str, description of your treee, ignored if ID is not specified.
+        :param pn: str, required if ID is specified, case sensitive, and should be unique in your account.
+        :param td: str, description of your treee, ignored if ID is not specified.
+        :param folder: bool, bool, whether zip all sister text files (must have .txt extension) saved along with the
+        tree file. If set to True, zip all text files in the folder, otherwise only zip and upload the tree file.
 
-        Note: A new ZIP archive (named iTOL.tree.zip) will be automatically generated in work directory every time you
-        call this method.
+        Note: A new ZIP archive (named iTOL.tree.zip) will be automatically created in work directory every time you
+        call this method if tfile was provided. If a ZIP file was provided via zfile, the ZIP will not be modified or
+        deleted and the same ZIP file will be uploaded to ITOL server.
         """
 
-        args = {}
-        zfile = os.path.join(self.wd, 'iTOL.tree.zip')
-        with ZipFile(zfile, 'w') as zf:
-            for f in os.listdir(self.wd):
-                if f.endswith('.txt') or f.endswith('.tree') or f.endswith('.jplace'):
-                    zf.write(os.path.join(self.wd, f), arcname=f)
+        if is_zipfile(self.tree):
+            zfile = self.tree
+        else:
+            zfile = os.path.join(self.wd, 'iTOL.tree.zip')
+            with ZipFile(zfile, 'w') as zf:
+                if folder:
+                    dn, basename = os.path.dirname(os.path.abspath(self.tree)), os.path.basename(self.tree)
+                    files = [name for name in os.listdir(dn) if name != basename and name.endswith('.txt')]
+                    if files:
+                        for fn in files:
+                            zf.write(os.path.join(dn, fn), arcname=fn)
+                zf.write(self.tree, arcname=os.path.basename(self.tree))
 
-        args['treeName'] = treename if treename else os.path.basename(self.tree)
-        if uploadID:
-            args['uploadID'] = uploadID
-        if projectname:
-            args['projectName'] = projectname
-        if treedescription:
-            args['treeDescription'] = treedescription
+        args = {'treeName': tn if tn else os.path.basename(self.tree)}
+        if uid:
+            args['uploadID'] = uid
+        if pn:
+            args['projectName'] = pn
+        if td:
+            args['treeDescription'] = td
 
         if not args['uploadID']:
-            print('Warning!!! No ID was provided!')
+            print('Warning!!! No upload ID was provided!')
             print('The tree will not be associated with any account and will be deleted after 30 days!')
         
         respond = requests.post(UPLOAD_URL, data=args, files={'zipFile': open(zfile, 'rb')})
-        info = respond.text
-        print(info)
+        msg = respond.text.rstrip()
         
-        if info.startswith('SUCCESS'):
-            code, treeID = info.split(': ')
+        if msg.startswith('SUCCESS'):
+            code, treeID = msg.split(': ')
             self.treeID = treeID
             print('Tree upload successfully and you can access your tree using the following iTOL tree ID:')
             print('\t{}'.format(treeID))
@@ -900,25 +925,25 @@ class TOL(object):
             self.url = url
             print('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
         else:
-            print('Tree upload failed due to the following reason:\n\t{}'.format(info))
+            print('Tree upload failed due to the following reason:\n\t{}'.format(msg))
             sys.exit(1)
             
         return treeID, url
     
-    def download(self, treeID='', outfile='', format='pdf', **kwargs):
+    def download(self, tid='', fmt='pdf', outfile='', **kwargs):
         """
         Download (or export) a tree from ITOL server (batch download).
         
-        :param treeID: str, ITOL tree ID which will be exported.
-        :param format: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
+        :param tid: str, ITOL tree ID which will be exported.
+        :param fmt: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
         newick, nexus and phyloxml for text formats.
         :param outfile: str, path of the output file.
         :param kwargs: optional parameters.
         :return:
         """
-        if treeID:
-            if isinstance(treeID, str):
-                treeID = str(treeID)
+        if tid:
+            if isinstance(tid, str):
+                treeID = tid
             else:
                 raise TypeError('Invalid treeID, argument treeID accepts a string pointing to a iTOL tree ID.')
         elif self.treeID:
@@ -926,29 +951,30 @@ class TOL(object):
         else:
             raise ValueError('No treeID provided, please upload a tree first or proved a treeID.')
         
-        if isinstance(format, str):
-            format = format.lower()
+        if isinstance(fmt, str):
+            fmt = fmt.lower()
             formats = ['svg', 'eps', 'pdf', 'png', 'newick', 'nexus', 'phyloxml']
-            if format not in formats:
+            if fmt not in formats:
                 raise ValueError("Invalid format. Supported formats: \n\t{}.".format(', '.join(formats)))
         else:
             raise TypeError('Invalid output format, argument format accepts a string representing output format.')
 
-        args = kwargs
-        args['tree'] = treeID
-        args['format'] = format
-        
+        args = kwargs if kwargs else {'tree': treeID, 'format': fmt}
+
         respond = requests.get(DOWNLOAD_URL, params=args)
-        info = respond.text
+        info = respond.text.rstrip()
         code = info.split(':')[0]
         if code == 'ERROR':
-            print('Tree download failed due to the following reason:\n\t{}'.format(info))
+            print('tree download failed due to the following reason:\n\t{}'.format(info))
             sys.exit(1)
         else:
-            outfile = outfile if outfile else os.path.join(self.wd, 'iTOL.download.{}'.format(format))
-            with open(outfile, 'wb') as out:
-                out.write(respond.content)
-            print('Tree download successfully and data has been saved to:\n\t{}'.format(outfile))
+            outfile = outfile if outfile else os.path.join(self.wd, 'iTOL.download.{}'.format(fmt))
+            try:
+                with open(outfile, 'wb') as out:
+                    out.write(respond.content)
+                print('Tree download successfully and data has been saved to:\n\t{}'.format(os.path.abspath(outfile)))
+            except IOError:
+                print('Save tree to file {} failed, location may not writable.'.format(outfile))
         return outfile
     
         

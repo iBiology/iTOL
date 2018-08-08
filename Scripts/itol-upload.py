@@ -49,12 +49,12 @@ def upload(tfile='', zfile='', tn='', uid='', pn='', td='', folder=False):
         # Although .mktemp() is UNSAFE to use, use .mkstemp() will lead to the temp file CANNOT be deleted due to
         # PermissionError: [WinError 32] The process can not access to the file because is used by other process
         # on Windows platform, still no clue why this happened.
-        zfile = tempfile.mktemp(suffix='.zip', prefix='iTOL.tree.')
-        name = 'iTOL.tree.jplace' if tfile.endswith('.jplace') else 'iTOL.tree.txt'
+        zfile, name = tempfile.mktemp(suffix='.zip', prefix='iTOL.tree.'), 'iTOL.tree.txt'
+
         with ZipFile(zfile, 'w') as zf:
             if folder:
                 dn, basename = os.path.dirname(os.path.abspath(tfile)), os.path.basename(tfile)
-                files = [name for name in os.listdir(dn) if name != basename and name.endswith('.txt')]
+                files = [f for f in os.listdir(dn) if f != basename and f.endswith('.txt')]
                 if files:
                     for fn in files:
                         zf.write(os.path.join(dn, fn), arcname=fn)
