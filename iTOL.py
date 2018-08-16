@@ -262,14 +262,19 @@ class TOL(object):
         help page <http://itol.embl.de/help.cgi>`_. See `popup_info_template.txt
         <http://itol.embl.de/help/popup_info_template.txt>`_ for more details.
 
-        Examples:
-            Internal node with simple HTML in its popup
-            data = [('9031|9606', "This is the popup title,<h1>Some header</h1><p>Information comes here</p>
-            <img src='http://website.com/images/image.jpg'/>")]
+        The nested list ``popups`` shows a general data structure and these data will set two popup items:
 
-            Popup for leaf node 9606
-            data = [(9606, "Homo sapiens info popup,<h1>Homo sapiens</h1><p style='color:blue'>More info at
-             <a target='_blank' href='http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606'> NCBI </a></p>")]
+        .. code-block:: python
+        
+            s1 = 'This is the popup title,<h1>Some header</h1><p>Information comes here</p>'
+            
+            s2 = '<img src="https://images-na.ssl-images-amazon.com/images/I/91gyeWnRc2L._SL1500_.jpg"/>'
+            
+            n1 = 'Zbumxj osiapem, info popup,<h1>Homo sapiens</h1><p style="color:blue">More info at'
+            
+            n2 = '<a target="_blank" href="https://en.wikipedia.org/wiki/Binomial_nomenclature"> WiKi</a></p>'
+            
+            popups = [('6304|7550', s1 + s2), (6321, n1 + n2)]
         """
 
         _args(locals(), data, separator, outfile, 'POPUP_INFO', self.wd)
