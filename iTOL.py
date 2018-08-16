@@ -228,12 +228,24 @@ class TOL(object):
         specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages.
         See `labels_template.txt <http://itol.embl.de/help/labels_template.txt>`_ for more details.
 
-        Examples:
-            Define a name for an internal node
-            data = [('9031|9606', 'Metazoa')]
+        The nested list ``colors`` shows a general data structure and these data will set:
+            * Leaf label for node 8518 will be renamed to Baq hxzgs
+            * Leaf label for node 6529 will be renamed to Wjk nduvpbl
+            * Leaf label for node 6321 will be renamed to Zbumxj osiapem
+            * A internal branch will be renamed to Clade A (clade name displayed in mouseover popups)
+            * A internal branch will be renamed to Clade B (clade name displayed in mouseover popups)
+            * A internal branch will be renamed to Clade C (clade name displayed in mouseover popups)
 
-            Change the name (or label) for a leaf node
-            data = [(9606, 'Homo sapiens')] or data = [('9606', 'Homo sapiens')]
+        .. code-block:: python
+            
+            labels = [
+                (8518, 'Baq hxzgs'),
+                ('6529', 'Wjk nduvpbl'),
+                (6321, 'Zbumxj osiapem'),
+                ('5784|7550', 'Clade A'),
+                ('7396|2154', 'Clade B'),
+                ('2055|539', 'Clade C')
+                ]
         """
 
         _args(locals(), data, separator, outfile, 'LABELS', self.wd)
