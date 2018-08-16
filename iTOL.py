@@ -10,6 +10,20 @@ import sys
 import shutil
 from zipfile import ZipFile, is_zipfile
 import requests
+import logging
+
+logger = logging.getLogger('[iTOL]')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(name)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+
+# fh = logging.FileHandler('iTOL.log')
+# fh.setLevel(logging.INFO), fh.setFormatter(formatter)
+# logger.addHandler(fh)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO), ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+warn, info, error = logger.warning, logger.info, logger.error
 
 
 DELIMITER = {'TAB': '\t', 'SPACE': ' ', 'COMMA': ','}
@@ -905,15 +919,19 @@ class TOL(object):
 
         if is_zipfile(self.tree):
             zfile = self.tree
+            info('Using existing ZIP file {}.'.format(zfile))
         else:
             zfile = os.path.join(self.wd, 'iTOL.tree.zip')
+            info('Creating ZIP file {}.'.format(zfile))
             with ZipFile(zfile, 'w') as zf:
                 if folder:
-                    dn, basename = os.path.dirname(os.path.abspath(self.tree)), os.path.basename(self.tree)
-                    files = [name for name in os.listdir(dn) if name != basename and name.endswith('.txt')]
+                    basename = os.path.basename(self.tree)
+                    # dn, basename = os.path.dirname(os.path.abspath(self.tree)), os.path.basename(self.tree)
+                    # files = [name for name in os.listdir(dn) if name != basename and name.endswith('.txt')]
+                    files = [name for name in os.listdir(self.wd) if name != basename and name.endswith('.txt')]
                     if files:
                         for fn in files:
-                            zf.write(os.path.join(dn, fn), arcname=fn)
+                            zf.write(fn, arcname=fn)
                 zf.write(self.tree, arcname=os.path.basename(self.tree))
 
         args = {'treeName': tn if tn else os.path.basename(self.tree)}
@@ -925,23 +943,23 @@ class TOL(object):
             args['treeDescription'] = td
 
         if not args['uploadID']:
-            print('Warning!!! No upload ID was provided!')
-            print('The tree will not be associated with any account and will be deleted after 30 days!')
+            warn('Warning!!! No upload ID was provided!')
+            warn('The tree will not be associated with any account and will be deleted after 30 days!')
         
+        info('Uploading ZIP file {} to ITOL server.'.format(zfile))
         respond = requests.post(UPLOAD_URL, data=args, files={'zipFile': open(zfile, 'rb')})
         msg = respond.text.rstrip()
         
         if msg.startswith('SUCCESS'):
             code, treeID = msg.split(': ')
             self.treeID = treeID
-            print('Tree upload successfully and you can access your tree using the following iTOL tree ID:')
-            print('\t{}'.format(treeID))
+            info('Upload successfully. You can access the tree using the following iTOL tree ID: \n\t{}'.format(treeID))
             
             url = 'https://itol.embl.de/tree/{}'.format(treeID)
             self.url = url
-            print('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
+            info('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
         else:
-            print('Tree upload failed due to the following reason:\n\t{}'.format(msg))
+            error('Upload failed due to the following reason:\n\t{}'.format(msg))
             sys.exit(1)
             
         return treeID, url
@@ -975,24 +993,26 @@ class TOL(object):
         else:
             raise TypeError('Invalid output format, argument format accepts a string representing output format.')
 
-        args = kwargs if kwargs else {'tree': treeID, 'format': fmt}
-
+        args = kwargs
+        args['tree'] = treeID
+        args['format'] = fmt
+        
         respond = requests.get(DOWNLOAD_URL, params=args)
-        info = respond.text.rstrip()
-        code = info.split(':')[0]
+        msg = respond.text.rstrip()
+        code = msg.split(':')[0]
         if code == 'ERROR':
-            print('tree download failed due to the following reason:\n\t{}'.format(info))
+            error('Download failed due to the following reason:\n\t{}'.format(msg))
             sys.exit(1)
         else:
             outfile = outfile if outfile else os.path.join(self.wd, 'iTOL.download.{}'.format(fmt))
             try:
                 with open(outfile, 'wb') as out:
                     out.write(respond.content)
-                print('Tree download successfully and data has been saved to:\n\t{}'.format(os.path.abspath(outfile)))
+                info('Download successfully and data has been saved to:\n\t{}'.format(os.path.abspath(outfile)))
             except IOError:
-                print('Save tree to file {} failed, location may not writable.'.format(outfile))
+                error('Save data to file {} failed, location may not be writable.'.format(outfile))
         return outfile
-    
+
         
 if __name__ == '__main__':
     pass
