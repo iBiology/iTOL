@@ -367,35 +367,17 @@ class TOL(object):
         value (at least 2 values) which are displayed as a pie chart directly on the branch, or outside the tree.
         See `dataset_piechart_template.txt <http://itol.embl.de/help/dataset_piechart_template.txt>`_ for more details.
         
-        Examples:
-            data = [(9606, 0, 10, 4, 2, 4)]
-            
-            data = [('LEAF1|LEAF2', 1, 5, 0.1, 0.3, 0.6)]
-            
-            data = [('ID1', 0, 20, 0.02, 0.18, 0.8), ('ID2', 1, 3, 0.11, 0.41, 0.48)]
-
-        :param legend_shapes: shapes can be set by a single shape value (string or integer) or a combined shape value
-             strings separated by the delimiter which was assigned by argument separator (keep separator consist).
+        * The nested list ``data`` shows a general data structure (ID, position, radius, value1, value2, value3...).
+        * The field_labels define label name of each field
+        * The filed_colors define label color of each field
+    
+        ..code-block:: python
         
-        Examples:
-            legend_shapes = 1 or legend_shapes = '1'
+            data = [(8518, -1, 30, 20, 32, 50), ('6529', 0.5, 20, 33, 23, 46), (6321, 1, 15, 18, 40, 35)]
             
-            legend_shapes = '2,4,5,1' or legend_shapes = '2\t4\t5\t1' or legend_shapes = '2 4 5 1'
-
-        :param legend_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_labels = 'b1'
+            field_labels = 'A,B,C'
             
-            legend_labels = 'b2,b4,b5,b1' or legend_labels = 'b2\tb4\tb5\tb1' or legend_labels = 'b2 b4 b5 b1'
-
-        :param legend_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_colors = '#ff0000'
-            legend_colors = '#ff0000,#00ff00,#ffff00,#0000ff' or legend_colors = '#ff0000\t#00ff00\t#ffff00\t#0000ff'
+            field_colors = '#ff0000,#00ff00,#ffff00'
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_PIECHART', self.wd)
