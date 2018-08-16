@@ -448,34 +448,9 @@ class TOL(object):
         `ITOL help page <http://itol.embl.de/help.cgi>`. See
         `dataset_gradient_template.txt <http://itol.embl.de/help/dataset_gradient_template.txt>`_ for more details.
 
-        Examples:
-            data = [(9606, 100)]
-            
-            data = [('LEAF1|LEAF2', 2000)]
-
-        :param legend_shapes: shapes can be set by a single shape value (string or integer) or a combined shape value
-            strings separated by the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_shapes = 1 or legend_shapes = '1'
-            
-            legend_shapes = '2,4,5,1' or legend_shapes = '2\t4\t5\t1' or legend_shapes = '2 4 5 1'
-
-        :param legend_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_labels = 'b1'
-            
-            legend_labels = 'b2,b4,b5,b1' or legend_labels = 'b2\tb4\tb5\tb1' or legend_labels = 'b2 b4 b5 b1'
-
-        :param legend_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_colors = '#ff0000'
-            
-            legend_colors = '#ff0000,#00ff00,#ffff00,#0000ff' or legend_colors = '#ff0000\t#00ff00\t#ffff00\t#0000ff'
+        The nested list ``data`` shows a general data structure (ID and and a value)
+    
+        data = [(8518, 200), ('6529', 330), (6321, 180), (2055, 403), ('9151', 500), ('1921', 360)]
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_GRADIENT', self.wd)
