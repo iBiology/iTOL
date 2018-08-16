@@ -393,12 +393,15 @@ class TOL(object):
         elements can be tailed in the order of position, color, style, size factor, and rotation.
         See `dataset_text_template.txt <http://itol.embl.de/help/dataset_text_template.txt>`_ for more details.
         
-        Examples:
-            node 9606 will have an external label 'Homo sapiens' in bold red and twice the size of standard labels
-            data = [(9606, 'Homo sapiens', '-1', '#ff0000', 'bold', 2, 0)]
+        The nested list ``data`` shows a general data structure (ID, label, position, color, style, size_factor, rotation)
+
+        .. code-block:: python
         
-            node 4530 will have an internal label 'Oryza sativa' in bold italic blue, starting directly over the node
-            data = [(4530, 'Oryza sativa', 0, '#0000ff', 'bold-italic', 1)]
+                data = [
+                    (8518, 'Baq hxzgs', '-1', '#0000ff', 'bold', 2, 0),
+                    ('6529', 'Wjk nduvpbl', 0, '#00ff00', 'italic', 1),
+                    (6321, 'Zbumxj osiapem', 1, '#ff8000', 'bold-italic', 1),
+                    ]
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_TEXT', self.wd)
