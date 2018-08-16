@@ -190,26 +190,30 @@ class TOL(object):
         Possible types are range, clade, branch, and label, an additional element may be optional or required.
         See `colors_styles_template.txt <http://itol.embl.de/help/colors_styles_template.txt>`_ for more details.
         
-        Examples:
-            Leaf label for node 8015 will be displayed in blue
-            data = [(8015, 'label', '#0000ff')] or data = [('8015', 'label', '#0000ff')]
-        
-            Leaf label for node human will be displayed in green, bold and twice the regular font size
-            data = [('human', 'label', '#00ff00', 'bold', '2')]
-        
-            Leaf label for node 9031 will be displayed in yellow, bold italic and half the regular font size
-            data = [(9031, 'label', '#ffff00', 'bold-italic', 0.5)]
-        
-            Internal node with solid branches colored blue and twice the standard width
-            data = [('9031|9606', 'clade', '#0000ff', 'normal', 2)]
+        The nested list ``colors`` shows a general data structure and these data will set:
+            * Leaf label for node 8518 will be displayed in purple
+            * Leaf label for node 6529 will be displayed in green, bold and twice the regular font size
+            * Leaf label for node 6321 will be displayed in orange, bold italic and half the regular font size
+            * Internal clade with solid branches and colored in purple
+            * Internal clade with dashed branches and colored in yellow
+            * Internal branch with dashed branches and colored in green
+            * Colored range in red
+            * Colored range in green
+            * Colored range in purple
             
-            Internal node with dashed branches colored red and one half the standard width as well as a single internal
-            branch colored green, dashed and 5 times the normal width (a list with 2 tuples)
-            data = [('601|340', 'clade', '#ff0000', 'dashed', 0.5), ('915|777', 'branch', '#00ff00', 'dashed', 5)]
+        .. code-block:: python
         
-            Colored range covering all leaves of an internal node, colored and with labels
-            data = [('184922|9606', 'range', '#ff0000', 'Eukaryota'), ('2190|2287', 'range', '#aaffaa', 'Archaea'),
-            ('623|1502', 'range', '#aaaaff', 'Bacteria')]
+            colors = [
+                (8518, 'label', '#0000ff'),
+                ('6529', 'label', '#00ff00', 'bold', '2'),
+                (6321, 'label', '#ff8000', 'bold-italic', 0.5),
+                ('6529|8463', 'clade', '#0000ff', 'normal', 3),
+                ('8090|8033', 'clade', '#ff0000', 'dashed', 0.5),
+                ('7539|1744', 'branch', '#00ff00', 'dashed', 5),
+                ('5784|7550', 'range', '#ff0000', 'Group A'),
+                ('7396|2154', 'range', '#aaffaa', 'Group B'),
+                ('2055|539', 'range', '#aaaaff', 'Group C')
+                ]
         """
 
         _args(locals(), data, separator, outfile, 'TREE_COLORS', self.wd)
