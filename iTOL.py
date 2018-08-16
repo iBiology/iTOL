@@ -279,7 +279,7 @@ class TOL(object):
 
         _args(locals(), data, separator, outfile, 'POPUP_INFO', self.wd)
 
-    def binary(self, data, separator='comma', dataset_label='binary', color='#ff0000', field_shapes=1,
+    def binary(self, data, separator='comma', dataset_label='binary', color='#ff0000', field_shapes='1',
                field_labels='f1', field_colors='#ff0000', outfile='binary.txt', **kwargs):
         
         """
@@ -291,35 +291,21 @@ class TOL(object):
         If use combined shapes, the delimiter between different shapes should be consisted with the argument separator.
         See `dataset_binary_template.txt <http://itol.embl.de/help/dataset_binary_template.txt>`_ for more details.
         
-        Examples:
-            Node 9606 will have a filled circle, empty left triangle, nothing in the 3rd column and an empty rectangle
-            data = [('9606', '1,0,-1,0')] and data = [('9606', 1, 0, -1, 0)] have same effect (on if separator was set
-            to comma).
-            
-        :param field_shapes: shapes can be set by a single shape value (string or integer) or a combined shape
-            value strings separated by the delimiter which was assigned by argument separator (keep separator consist).
         
-        Examples:
-            field_shapes = 1 or field_shapes = '1'
-            
-            field_shapes = '2,4,5,1' or '2\t4\t5\t1' or '2 4 5 1', (for comma, tab, or space)
-            
-        :param field_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
+        * The nested list ``data`` shows a general data structure.
+        * The field_shapes define the shape of four fields corresponding to data.
+        * The shape_labels define the label of each field.
+        * The field_colors define the color of each field.
         
-        Examples:
-            field_labels = 'f1'
-            
-            field_labels = 'f2,f4,f5,f1' or 'f2\tf4\tf5\tf1' or 'f2 f4 f5 f1', (for comma, tab, or space)
-            
-        :param field_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
+        .. code-block:: python
         
-        Examples:
-            field_colors = '#ff0000'
+            data = [(8518, '1,0,-1,0'), ('6529', 1, 0, -1, 0), (6321, 0, 1, 0, -1), (2055, 0, 0, 0, -1)]
             
-            field_colors = '#ff0000,#00ff00,#ffff00' or '#ff0000\t#00ff00\t#ffff00' or '#ff0000 #00ff00 #ffff00'
+            filed_shape = '2,4,5,1'
             
+            field_labels = 'f2,f4,f5,f1'
+            
+            field_colors = '#ff0000,#00ff00,#ffff00,#ff8000'
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_BINARY', self.wd)
