@@ -185,8 +185,8 @@ if __name__ == '__main__':
     parse.add_argument('-n', help='The name you assign to the tree.', metavar='treeName')
     parse.add_argument('-p', help='Project name, required if uploadID is set.', metavar='projectName')
     parse.add_argument('-d', help='Description of your tree.', metavar='treeDescription')
-    parse.add_argument('-f', help='Output file format, default: pdf. '
-                                  'Graphical formats: svg, eps, pdf and png.', default='pdf')
+    parse.add_argument('-f', help='Output file format, default: pdf. Graphical formats: svg, eps, pdf and png; '
+                                  'text formats: newick, nexus and phyloxml', default='pdf')
     parse.add_argument('-o', help='Path of the output file.')
     parse.add_argument('-a', help='Force zip all text files along with the tree file.', action='store_true')
 

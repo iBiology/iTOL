@@ -17,8 +17,8 @@ About
 
 Python API and a command-line tool for the Tree of Life (`iTOL <http://iTOL.embl.de>`_).
 
-This API is intentionally designed for interacting with iTOL server. The author suggest use this API to handle big
-datasets and programmatically manipulated phylogenetic trees and associated annotation datasets. The API allows users
+This API is intentionally designed for interacting with iTOL server. The author suggests use this API to handle big
+datasets or programmatically manipulated phylogenetic trees and associated annotation datasets. The API allows users
 interact with iTOL server using Python or shell. In order to visualize your data, an active internet connection to iTO
 server is required.
 
@@ -45,7 +45,7 @@ Check the usage of ``itol.py`` first:
 .. code-block:: shell
 
     $ itol.py -h
-    usage: itol-upload DATA [OPTIONS]
+    usage: itol.py DATA [OPTIONS]
 
     Command line tool for ITOL (http://itol.embl.de) bach access.
 
@@ -55,11 +55,12 @@ Check the usage of ``itol.py`` first:
     optional arguments:
       -h, --help          show this help message and exit
       -i uploadID         Your upload ID (ID for batch uploading).
-      -n treeName         The name you assign to the tree.
-      -p projectName      Project name, required if uploadID is set.
+      -n treeName         The name you assigned to the tree.
+      -p projectName      Project name, required if uploadID is assigned.
       -d treeDescription  Description of your tree.
       -f F                Output file format, default: pdf. Graphical formats:
-                          svg, eps, pdf and png.
+                          svg, eps, pdf and png; text formats: newick, nexus and
+                          phyloxml
       -o O                Path of the output file.
       -a                  Force zip all text files along with the tree file.
 
@@ -75,7 +76,7 @@ Upload a tree file to iTOL server and using a uploadID and project name:
 
     $ itol.py /path/to/tree_file -i uploadID -p project_name
 
-Upload a tree file to iTOL server and using a uploadID, project name and a tree name:
+Upload a tree file to iTOL server and using a uploadID, project name and assign a tree name:
 
 .. code-block:: shell
 
@@ -134,7 +135,7 @@ users are able to access all methods for generating annotation files and interac
 
     from iTOL import TOL
 
-    # Initiate the base class by pass the tree file and work directory (not always necessary)
+    # Initiate the base class by providing a tree file and work directory (not always necessary)
     t = TOL(tfile='path/to/tree_file', wd='path/to/work/directory')
 
     # Data for coloring the tree
@@ -155,6 +156,8 @@ users are able to access all methods for generating annotation files and interac
 
     # Data for making pie chart
     data = [(8518, -1, 30, 20, 32, 50), ('6529', 0.5, 20, 33, 23, 46), (6321, 1, 15, 18, 40, 35)]
+
+    # Generating annotation file for pie char
     t.pie(data)
 
     # Upload the tree and the generated annotation files to iTOL server
@@ -167,7 +170,7 @@ users are able to access all methods for generating annotation files and interac
     t.download(fmt='png', outfile='iTOL.png')
 
     # Download the tree image display in circular mode, both datasets visible,and save it to iTOL.png file in png format
-    t.download(fmt='png', outfile='iTOL.png', display_mode=2, datasets_visible='0,1')
+    t.download(fmt='png', outfile='iTOL_visible.png', display_mode=2, datasets_visible='0,1')
 
 Since using ``iTOL`` module in Python is more flexible, users are strongly encouraged to check out the ``examples``
 directory for more examples.
@@ -175,12 +178,12 @@ directory for more examples.
 Bugs and Comments
 -----------------
 
-Please send bugs and comments as issues on this `Github <https://github.com/iBiology/iTOL>`_ repository.
+Please send bugs and comments as issues to the `Github <https://github.com/iBiology/iTOL>`_ repository of this module.
 
 Development
 -----------
 
-Users or developer are NOT encouraged to directly run the example code stored in the ``examples`` directory. If you want
-to run these codes to test `iTOL`, the author STRONGLY suggest that you create an account on iTOL website, and replace
-the upload ID in these examples. Without replacing the upload ID, you may upload all your data into a Demo project set
-by the author and mess up the whole project.
+Users or developers are **NOT** encouraged to directly run the example code stored in the ``examples`` directory. If
+you want to run these codes to test `iTOL`, the author **STRONGLY** suggest that you create an account on iTOL website,
+and replace the upload ID in these examples. Without replacing the upload ID, you may upload all your data into a Demo
+or Program project set by the author and mess up the whole project.
