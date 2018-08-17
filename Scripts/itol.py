@@ -178,7 +178,7 @@ if __name__ == '__main__':
     will be ignored, while you are downloading, the '-n' option for a tree name will also be ignored.
     """
 
-    parse = argparse.ArgumentParser(description=des, prog='itol-upload', usage='%(prog)s DATA [OPTIONS]', epilog=epilog)
+    parse = argparse.ArgumentParser(description=des, prog='itol.py', usage='%(prog)s DATA [OPTIONS]', epilog=epilog)
 
     parse.add_argument('DATA', help='A tree file name, a ZIP file name, a tree ID or URL.')
     parse.add_argument('-i', help='Your upload ID (ID for batch uploading).', metavar='uploadID')
