@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Command-line script for ITOL (http://itol.embl.de) batch access (data download or export).
+Command-line script for `ITOL <http://itol.embl.de>`_ batch access (data download or export).
 """
 
 import os
@@ -15,7 +15,7 @@ import logging
 
 formatter = '%(levelname)s %(asctime)s %(name)s %(message)s'
 logging.basicConfig(level=logging.INFO, format=formatter, datefmt='%Y-%m-%d %H:%M:%S')
-logger = logging.getLogger('iTOL')
+logger = logging.getLogger('iTOL-DOWNLOAD')
 warn, info, error = logger.warning, logger.info, logger.error
 
 UPLOAD_URL = "http://itol.embl.de/batch_uploader.cgi"

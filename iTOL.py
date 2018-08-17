@@ -3,6 +3,8 @@
 
 """
 Python API for phylogenetic tree visualization in Interactive Tree of Life (`ITOL <http://iTOL.embl.de>`_).
+
+TODO: add method handles data ``get()`` and ``post()`` methods using built-in ``urllib`` instead of ``requests``.
 """
 
 import os
