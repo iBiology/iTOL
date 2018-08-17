@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Command-line script for uploading data (batch access) to ITOL (http://itol.embl.de) server.
+Command-line script for `ITOL <http://itol.embl.de>`_ batch access (data upload).
 """
 
 import os
@@ -27,14 +27,14 @@ def upload(tfile='', zfile='', tn='', uid='', pn='', td='', folder=False):
     Zip tree file (regular text file in Newick, Nexus, PhyloXML or Jplace format) into a ZIP file or directly upload
     a zip file to ITOL server (batch upload).
 
-    :param tfile: str, filename of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
-    :param zfile: str, a ZIP archive containing the tree and all other dataset and annotation files.
-    :param tn: str, if not provided, the tree file name (basename without extension) will be used instead.
+    :param tfile: str, path of a tree file, in one of the supported formats (Newick, Nexus, PhyloXML or Jplace).
+    :param zfile: str, path of a ZIP archive contains the tree and all other dataset and annotation files.
+    :param tn: str, if not provided, the basename of the tree file will be used instead.
     :param uid: str, your upload ID, which is generated when you enable batch uploading in your account. If an
     uid is not provided, the tree will not be associated with any account, and will be deleted after 30 days.
     :param pn: str, required if ID is specified, case sensitive, and should be unique in your account.
     :param td: str, description of your tree, ignored if ID is not specified.
-    :param folder, bool, whether zip all sister text files (must have .txt extension) saved along with the tree file. If
+    :param folder, bool, whether zip all text files (must have .txt extension) in the same directory with tree file. If
     set to True, zip all text files in the folder, otherwise only zip and upload the tree file.
 
     Note: Either a treefile (regular text file) or a zipfile is needed. The name of the tree file will be automatically
@@ -42,6 +42,11 @@ def upload(tfile='', zfile='', tn='', uid='', pn='', td='', folder=False):
     ZIP file for uploading and the temporary ZIP file will be deleted upon the process exit. If a ZIP file is provided,
     however, users are responsible for renaming the name of the tree file and make sure the file have the extension
     '.tree' or '.tree.txt'. The user provided ZIP file will not be modified or deleted.
+    
+    .. Note:
+        Unlike use the ``TOL`` class, which will zip all text file inside the work directory if folder is set to True.
+        In this command line tool, set the argument ``folder`` or ``-f`` flag will zip all text files (must have the
+        extension .txt) in the same directory with tree file into a temporary zip file.
     """
     
     if tfile and os.path.isfile(tfile):
@@ -54,8 +59,10 @@ def upload(tfile='', zfile='', tn='', uid='', pn='', td='', folder=False):
         with ZipFile(zfile, 'w') as zf:
             if folder:
                 dn, basename = os.path.dirname(os.path.abspath(tfile)), os.path.basename(tfile)
+                info('Finding and zipping all text files in directory {} into a ZIP file.'.format(dn))
                 files = [f for f in os.listdir(dn) if f != basename and f.endswith('.txt')]
                 if files:
+                    info('Zipping {} text files into the ZIP file.'.format(len(files)))
                     for fn in files:
                         zf.write(os.path.join(dn, fn), arcname=fn)
             zf.write(tfile, arcname=name)
