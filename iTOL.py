@@ -574,28 +574,6 @@ class TOL(object):
                     (6321, 3, 60, '#ffff00', 1, 1, 'C')]
         """
         _args(locals(), data, separator, outfile, 'DATASET_SYMBOL', self.wd)
-
-    def placement(self, jplace):
-        """
-        Handles phylogenetic placements
-
-        :param jplace: string, file name of .jplace files created by pplacer and RAxML.
-        """
-        if isinstance(jplace, str):
-            if os.path.isfile(jplace):
-                if jplace.endswith('.jplace'):
-                    name = os.path.abspath(jplace)
-                else:
-                    name = os.path.abspath(''.join([jplace, '.jplace']))
-                directory = os.path.dirname(name)
-                if directory != self.wd:
-                    shutil.copy(name, os.path.join(self.wd, os.path.basename(name)))
-                    name = os.path.join(self.wd, os.path.basename(name))
-            else:
-                raise ValueError('jplace file {} does not exist!'.format(jplace))
-        else:
-            raise ValueError('Argument jplace should be a string representing a jplace file name!')
-        return name
     
     def msa(self, data, separator='comma', dataset_label='msa', color='#ff0000', custom_color_scheme='',
             outfile='msa.txt', **kwargs):
