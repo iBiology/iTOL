@@ -509,19 +509,9 @@ class TOL(object):
         Each inner tuple or list should have at least 2 elements which define node id(s) and multiple values. See
         `dataset_boxplot_template.txt <http://itol.embl.de/help/dataset_boxplot_template.txt>`_ for more details.
 
-        Examples:
-            data = [(9606, 10000, 12000, 13000, 10000)]
-            
-            data = [('ID1', 200, 300, 400, 500), ('ID2', 250, 200, 150, 200, 300)]
-
-        :param dataset_scale: scale can only be set by combined strings (format: VALUE or VALUE-LABEL-COLOR) separated
-            by the delimiter which was assigned by argument separator. See http://itol.embl.de/help.cgi#dsScale for more
-            details.
-
-        Examples
-            dataset_scale = '100,200,300,400,500' or dataset_scale = '100 200 300 400 500'
-            
-            dataset_scale = '2000-2k-#0000ff,10000-10k-#ff0000' or dataset_scale = '2000-2k-#0000ff 10000-10k-#ff0000'
+        The nested list ``data`` shows a general data structure (ID1, minimum, q1, median, q3, maximum, value1, ...).
+    
+        data = [(8518, 20, 25, 32, 44, 55, 60), ('6529', 20, 23, 30, 46, 58, 18), (6321, 15, 18, 29, 35, 45, 40)]
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_BOXPLOT', self.wd)
