@@ -547,26 +547,9 @@ class TOL(object):
         Each inner tuple or list should have at least 2 elements which define node id and multiple values. See
         `dataset_external_shapes_template.txt <http://itol.embl.de/help/dataset_external_shapes_template.txt>`_.
 
-        Examples:
-            data = [(9606, 10, 10, 20, 40)]
-            
-            data = [('LEAF1|LEAF2', 50, 60, 80, 90)]
+        The nested list ``data`` shows a general data structure (ID1, length, D1, D2, D3, ...).
 
-        :param field_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator.
-
-        Examples:
-            field_labels = 'f1'
-            
-            field_labels = 'f2,f4,f5,f1' or field_labels = 'f2\tf4\tf5\tf1' or field_labels = 'f2 f4 f5 f1'
-
-        :param field_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator.
-
-        Examples:
-            field_colors = '#ff0000'
-            
-            field_colors = '#ff0000,#00ff00,#ffff00,#0000ff' or field_colors = '#ff0000 #00ff00 #ffff00 #0000ff'
+        data = [(8518, 20, 25, 32, 44, 55, 60), ('6529', 20, 23, 30, 46, 58, 18), (6321, 15, 18, 29, 35, 45, 40)]
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_EXTERNALSHAPE', self.wd)
