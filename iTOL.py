@@ -641,8 +641,10 @@ class TOL(object):
         .. Note::
             DATASET_LINECHART is not supported in batch mode yet, this method can be used to generated the
             data file for line chart. When you try to upload the data file to the ITOL server, a warning will be
-            issued. If you try to use the ``download()`` method to download data, an error (Invalid SVG received from
-            headless browser.) will be logged.
+            issued. If you try to use the ``.download()`` method to download data, an error (Invalid SVG received from
+            headless browser) will be logged. The purpose of this method is mainly for programmatically generating
+            hte data file for lines. In future, if batch access of DATASET_LINECHART is allowed, then you can feel
+            free to use the full function of this method.
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_LINECHART', self.wd)
@@ -654,16 +656,24 @@ class TOL(object):
         :param data: list, a nested list consisting of tuples or lists.
         
         Each inner tuple or list should have 7 elements which define node id, position, size_factor, rotation,
-        horizontal_shift, vertical_shift, and image_url. See `dataset_linechart_template.txt
-        <http://itol.embl.de/help/dataset_linechart_template.txt.`_ for more details.
+        horizontal_shift, vertical_shift, and image_url. See `dataset_image_template.txt
+        <https://itol.embl.de/help/dataset_image_template.txt`_ for more details.
 
         Examples:
             data = [('9606', -1, 1, 0, 0, 0, 'http://itol.embl.de/img/species/9606.jpg'),
             ('4530', 1, 1, 0, 0, 0, 'http://itol.embl.de/img/species/4530.jpg'),
             ('6239|6239', 0, 1, 90, 0, 0, 'http://itol.embl.de/img/species/6239.jpg')]
+            
+        .. Note::
+            DATASET_IMAGE is not supported in batch mode yet, this method can be used to generated the
+            data file for image. When you try to upload the data file to the ITOL server, a warning will be
+            issued. If you try to use the ``.download()`` method to download data, an error (Invalid SVG received from
+            headless browser) will be logged. The purpose of this method is mainly for programmatically generating
+            hte data file for image. In future, if batch access of DATASET_IMAGE is allowed, then you can feel free to
+            use the full function of this method.
         """
-    
-        pass
+
+        _args(locals(), data, separator, outfile, 'DATASET_IMAGE', self.wd)
 
     def upload(self, tn='', uid='', pn='', td='', folder=False):
 
