@@ -475,7 +475,7 @@ class TOL(object):
 
         _args(locals(), data, separator, outfile, 'DATASET_CONNECTION', self.wd)
 
-    def heatmap(self, data, separator='space', dataset_label='heatmap', color='#ff0000',
+    def heatmap(self, data, separator='comma', dataset_label='heatmap', color='#ff0000',
                 field_labels='f1 f2 f3 f4 f5 f6', field_tree='',
                 legend_title='', legend_shapes='', legend_colors='', legend_labels='', outfile='heatmap.txt', **kwargs):
 
@@ -487,40 +487,13 @@ class TOL(object):
         Each inner tuple or list should have at least 2 elements which define node id(s) and multiple values.
         See `dataset_heatmap_template.txt <http://itol.embl.de/help/dataset_heatmap_template.txt>`_ for more details.
 
-        Example:
-            data = [(9606, 10, 15, 20, 25, 30)]
-            
-        :param field_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator.
-
-        Examples:
-            field_labels = 'f1'
-            
-            field_labels = 'f2,f4,f5,f1' or field_labels = 'f2\tf4\tf5\tf1' or field_labels = 'f2 f4 f5 f1'
-
-        :param legend_shapes: shapes can be set by a single shape value (string or integer) or a combined shape value
-            strings separated by the delimiter which was assigned by argument separator (keep separator consist).
+        The nested list ``data`` shows a general data structure (ID, value1, value2, value3...).
+    
+        data = [(8518, 30, 20, 32, 50), ('6529', 20, 33, 23, 46), (6321, 15, 18, 40, 35)]
         
-        Examples
-            legend_shapes = 1 or legend_shapes = '1'
+        The field_labels define name of four fields.
         
-            legend_shapes = '2,4,5,1' or legend_shapes = '2\t4\t5\t1' or legend_shapes = '2 4 5 1'
-
-        :param legend_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_labels = 'b1'
-            
-            legend_labels = 'b2,b4,b5,b1' or legend_labels = 'b2\tb4\tb5\tb1' or legend_labels = 'b2 b4 b5 b1'
-
-        :param legend_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator (keep separator consist).
-        
-        Examples:
-            legend_colors = '#ff0000'
-            
-            legend_colors = '#ff0000,#00ff00,#ffff00,#0000ff' or legend_colors = '#ff0000\t#00ff00\t#ffff00\t#0000ff'
+        field_labels = 'A,B,C,D'
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_HEATMAP', self.wd)
