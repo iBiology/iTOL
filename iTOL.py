@@ -563,40 +563,15 @@ class TOL(object):
         :param data: list, a nested list consisting of tuples.
         Each inner tuple or list should have at least 6 elements which define node id, symbol, size, color, fill,
         position, may or may not followed by an additional element label.
-        See http://itol.embl.de/help/dataset_external_shapes_template.txt for more details.
+        See `dataset_symbols_template.txt <http://itol.embl.de/help/dataset_symbols_template.txt>`_ for more details.
         
-        Examples:
-            data = [(9606, 2, 10, '#ff0000', 1, 0.5)]
-            
-            data = [('LEAF1|LEAF2', 2, 10, '#ff0000', 1, 0.5)]
-
-        :param legend_shapes: shapes can be set by a single shape value (string or integer) or a combined shape value
-        strings separated by the delimiter which was assigned by argument separator.
+        # The nested list ``data`` shows a general data structure (ID, symbol, size, color, fill, position, label).
+    
+        .. code-block:: python
         
-        Examples:
-            legend_shapes = 1
-            legend_shapes = '1'
-            legend_shapes = '2,4,5,1' (only works when separator is comma)
-            legend_shapes = '2\t4\t5\t1' (only works when separator is tab)
-            legend_shapes = '2 4 5 1' (only works when separator is space)
-
-        :param legend_labels: labels can be set by a single shape value string or a combined label strings separated by
-        the delimiter which was assigned by argument separator.
-        
-        Examples:
-            legend_labels = 'b1'
-            legend_labels = 'b2,b4,b5,b1' (only works when separator is comma)
-            legend_labels = 'b2\tb4\tb5\tb1' (only works when separator is tab)
-            legend_labels = 'b2 b4 b5 b1' (only works when separator is space)
-
-        :param legend_colors: colors can be set by a single color value string or a combined color strings separated by
-        the delimiter which was assigned by argument separator.
-
-        Examples:
-            legend_colors = '#ff0000'
-            legend_colors = '#ff0000,#00ff00,#ffff00,#0000ff' (only works when separator is comma)
-            legend_colors = '#ff0000\t#00ff00\t#ffff00\t#0000ff' (only works when separator is tab)
-            legend_colors = '#ff0000 #00ff00 #ffff00 #0000ff' (only works when separator is space)
+            data = [(8518, 1, 20, '#ff0000', 1, 0, 'A'),
+                    ('6529', 2, 40, '#00ff00', 0, 0.5, 'B'),
+                    (6321, 3, 60, '#ffff00', 1, 1, 'C')]
         """
         _args(locals(), data, separator, outfile, 'DATASET_SYMBOL', self.wd)
 
