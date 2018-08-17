@@ -530,41 +530,9 @@ class TOL(object):
         Each domain definition string consists of 5 parts, separated with vertical lines: shape|start|end|color|label
         See http://itol.embl.de/help/dataset_boxplot_template.txt for more details.
 
-        Example:
-            data = [(9606, 1200, 'RE|100|150|#ff0000|SH2', 'EL|400|500|#0000ff|SH3', 'OC|700|900|#00ff00|PH')]
-
-        :param dataset_scale: scale can only be set by combined strings (format: VALUE or VALUE-LABEL-COLOR) separated
-            by the delimiter which was assigned by argument separator. See http://itol.embl.de/help.cgi#dsScale for
-            more details.
-
-        Examples:
-            dataset_scale = '100,200,300,400,500' or dataset_scale = '100 200 300 400 500'
-
-            dataset_scale = '2000-2k-#0000ff,10000-10k-#ff0000' or dataset_scale = '2000-2k-#0000ff\t10000-10k-#ff0000'
-
-        :param legend_shapes: shapes can be set by a single shape string or a combined shape strings separated by the
-            delimiter which was assigned by argument separator.
-
-        Examples:
-            legend_shapes = 1 or legend_shapes = '1'
-            
-            legend_shapes = '2,4,5,1' or legend_shapes = '2\t4\t5\t1' or legend_shapes = '2 4 5 1'
-
-        :param legend_labels: labels can be set by a single shape value string or a combined label strings separated by
-            the delimiter which was assigned by argument separator.
-
-        Examples:
-            legend_labels = 'b1'
-            
-            legend_labels = 'b2,b4,b5,b1' or legend_labels = 'b2\tb4\tb5\tb1' or legend_labels = 'b2 b4 b5 b1'
-
-        :param legend_colors: colors can be set by a single color value string or a combined color strings separated by
-            the delimiter which was assigned by argument separator.
-
-        Examples:
-            legend_colors = '#ff0000'
-            
-            legend_colors = '#ff0000,#00ff00,#ffff00,#0000ff' or legend_colors = '#ff0000 #00ff00 #ffff00 #0000ff'
+        The nested list ``data`` shows a general data structure (ID1, length, D1, D2, D3, ...).
+    
+        data = [(8518, 1200, 'RE|100|150|#ff0000|SH2', 'EL|400|500|#0000ff|SH3', 'OC|700|900|#00ff00|PH')]
         """
 
         _args(locals(), data, separator, outfile, 'DATASET_DOMAINS', self.wd)
