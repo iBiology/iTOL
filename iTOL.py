@@ -585,6 +585,8 @@ class TOL(object):
         
         :param data: str, path of an alignment file (in FASTA format). See
         `help/dataset_alignment_template.txt <http://itol.embl.de/help/dataset_alignment_template.txt>`_ for details.
+        
+        TODO: add support for handling alignment files in different formats (i.e. phylip, clustal, ...)
         """
         
         args = locals()
@@ -632,12 +634,18 @@ class TOL(object):
         For each individual point, a string consisting of X and Y values separated by a vertical line. See
         `dataset_linechart_template.txt <http://itol.embl.de/help/dataset_linechart_template.txt>`_ for more details.
         
-        Examples:
-            data = [('A', 'X1|Y1', 'X2|Y2', 'X3|Y3'), ('9606', '2|6', '0|0', '5|3'),
-            ('B|C', '0|0', '10|5', '2|1', '13|15')]
-        """
+        The nested list ``data`` shows a general data structure (ID, X1|Y1 X2|Y2 X3|Y3, ...).
+    
+        data = [(8518, '-10|-15', '0|0', '5|3'), ('6529', '0|0', '10|5', '20|10', '30|15')]
         
-        pass
+        .. Note::
+            DATASET_LINECHART is not supported in batch mode yet, this method can be used to generated the
+            data file for line chart. When you try to upload the data file to the ITOL server, a warning will be
+            issued. If you try to use the ``download()`` method to download data, an error (Invalid SVG received from
+            headless browser.) will be logged.
+        """
+
+        _args(locals(), data, separator, outfile, 'DATASET_LINECHART', self.wd)
 
     def image(self, data, separator='comma', dataset_label='image', color='#ff0000', outfile='image.txt', **kwargs):
         """
@@ -718,6 +726,16 @@ class TOL(object):
             url = 'https://itol.embl.de/tree/{}'.format(treeID)
             self.url = url
             info('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
+        elif msg.startswith('WARNING'):
+            lines = msg.split('\n')
+            warn('Upload successfully, but you get the following warning message: \n\t{}'.format('\n'.join(lines[:-1])))
+            code, treeID = lines[-1].split(': ')
+            self.treeID = treeID
+            info('You can access the tree using the following iTOL tree ID: \n\t{}'.format(treeID))
+
+            url = 'https://itol.embl.de/tree/{}'.format(treeID)
+            self.url = url
+            info('You can also view your tree in browser using the following URL: \n\t{}'.format(url))
         else:
             error('Upload failed due to the following reason:\n\t{}'.format(msg))
             sys.exit(1)
@@ -759,7 +777,7 @@ class TOL(object):
         
         respond = requests.get(DOWNLOAD_URL, params=args)
         msg = respond.text.rstrip()
-        print(msg)
+
         code = msg.split(':')[0]
         if code == 'ERROR':
             error('Download failed due to the following reason:\n\t{}'.format(msg))
