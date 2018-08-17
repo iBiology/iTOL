@@ -119,7 +119,9 @@ def download(tid, fmt='pdf', outfile='', **kwargs):
     if tid:
         if tid.startswith('http'):
             treeID = tid.split('/')[-1]
-        if not tid.isdigit():
+        elif tid.isdigit():
+            treeID = tid
+        else:
             error('Invalid tid {}, argument tid accepts an ITOL tree ID or URL.'.format(tid))
             sys.exit(1)
     else:
@@ -137,9 +139,9 @@ def download(tid, fmt='pdf', outfile='', **kwargs):
         sys.exit(1)
     
     args = kwargs
-    args['tree'] = tid
+    args['tree'] = treeID
     args['format'] = fmt
-    
+
     respond = requests.get(DOWNLOAD_URL, params=args)
     msg = respond.text
     code = msg.rstrip().split(':')[0]
