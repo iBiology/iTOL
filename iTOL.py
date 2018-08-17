@@ -5,6 +5,7 @@
 Python API for phylogenetic tree visualization in Interactive Tree of Life (`ITOL <http://iTOL.embl.de>`_).
 
 TODO: add method handles data ``get()`` and ``post()`` methods using built-in ``urllib`` instead of ``requests``.
+TODO: add support for Python 2. Current codes have only benn tested under Python 3.6 (August 17, 2018)
 """
 
 import os
@@ -645,7 +646,7 @@ class TOL(object):
             data file for line chart. When you try to upload the data file to the ITOL server, a warning will be
             issued. If you try to use the ``.download()`` method to download data, an error (Invalid SVG received from
             headless browser) will be logged. The purpose of this method is mainly for programmatically generating
-            hte data file for lines. In future, if batch access of DATASET_LINECHART is allowed, then you can feel
+            the data file for lines. In future, if batch access of DATASET_LINECHART is allowed, then you can feel
             free to use the full function of this method.
         """
 
