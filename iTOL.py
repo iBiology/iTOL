@@ -681,18 +681,18 @@ class TOL(object):
         Zip tree file and all notation files (text files have .txt extension) inside work directory into a zip file
         and upload the zip file to ITOL server (batch upload).
 
-        :param tn: str, if not provided, the tree file name (basename without extension) will be used instead.
+        :param tn: str, if not provided, the basename of the tree file will be used instead.
         :param uid: str, your upload ID, which is generated when you enable batch uploading in your account. If an
         uploadID is not provided, the tree will not be associated with any account, and will be deleted after 30 days.
         :param pn: str, required if ID is specified, case sensitive, and should be unique in your account.
         :param td: str, description of your tree, ignored if ID is not specified.
-        :param folder: bool, bool, whether zip all sister text files (must have .txt extension) saved along with the
-        tree file. If set to True, zip all text files in the folder, otherwise only zip and upload the tree file.
+        :param folder: bool, whether zip all text files (must have .txt extension) in the work directory or not. If
+        set to True, zip all text files in the folder, otherwise only zip and upload the tree file.
 
         .. Note::
             A new ZIP archive (named iTOL.tree.zip) will be automatically created in work directory every time you
-            call this method if tfile was provided. If a ZIP file was provided via zfile, the ZIP will not be modified
-            or deleted and the same ZIP file will be uploaded to ITOL server.
+            call this method if tfile was provided via argument ``tfile``. If a ZIP file was provided via
+            argument ``zfile``, the ZIP file will not be touched but directly upload to ITOL server.
         """
 
         if is_zipfile(self.tree):
@@ -704,8 +704,6 @@ class TOL(object):
             with ZipFile(zfile, 'w') as zf:
                 if folder:
                     basename = os.path.basename(self.tree)
-                    # dn, basename = os.path.dirname(os.path.abspath(self.tree)), os.path.basename(self.tree)
-                    # files = [name for name in os.listdir(dn) if name != basename and name.endswith('.txt')]
                     files = [name for name in os.listdir(self.wd) if name != basename and name.endswith('.txt')]
                     if files:
                         for fn in files:
@@ -754,20 +752,25 @@ class TOL(object):
     
     def download(self, tid='', fmt='pdf', outfile='', **kwargs):
         """
-        Download (or export) a tree from ITOL server (batch download).
+        Download (or export) data from ITOL server (batch download).
         
-        :param tid: str, ITOL tree ID which will be exported.
+        :param tid: str, ITOL tree ID or URL (of the tree) which will be exported.
         :param fmt: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
         newick, nexus and phyloxml for text formats.
         :param outfile: str, path of the output file.
-        :param kwargs: optional parameters.
-        :return:
+        :param kwargs: optional parameters see https://itol.embl.de/help.cgi#bExOpt for more details.
+        :return: str, path of the output file.
         """
+        
         if tid:
-            if isinstance(tid, str):
-                treeID = tid
-            else:
-                raise TypeError('Invalid treeID, argument treeID accepts a string pointing to a iTOL tree ID.')
+            try:
+                treeID = str(tid)
+            except ValueError:
+                error('Invalid treeID, argument treeID accepts a string or numerical format iTOL tree ID.')
+                sys.exit(1)
+            if treeID.startswith('http'):
+                treeID = treeID.split('/')[-1]
+                
         elif self.treeID:
             treeID = self.treeID
         else:
