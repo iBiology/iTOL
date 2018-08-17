@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Command-line script for ITOL (http://itol.embl.de) batch access (data upload and download).
+Command-line script for ITOL (http://itol.embl.de) batch access (data download or export).
 """
 
 import os
@@ -26,7 +26,7 @@ def download(tid, fmt='pdf', outfile='', **kwargs):
     """
     Download (or export) a tree from ITOL server (batch download).
 
-    :param tid: str, ITOL tree ID which will be exported.
+    :param tid: str, ITOL tree ID or URL which will be exported.
     :param fmt: str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
     newick, nexus and phyloxml for text formats.
     :param outfile: str, path of the output file.
@@ -34,11 +34,13 @@ def download(tid, fmt='pdf', outfile='', **kwargs):
     """
     
     if tid:
+        if tid.startswith('http'):
+            treeID = tid.split('/')[-1]
         if not tid.isdigit():
-            error('Invalid tid {}, argument tid accepts an ITOL tree ID.'.format(tid))
+            error('Invalid tid {}, argument tid accepts an ITOL tree ID or URL.'.format(tid))
             sys.exit(1)
     else:
-        error('No tid provided, please proved a tid (tree ID) for downloading.')
+        error('No tid provided, please proved a tid (tree ID or URL) for downloading.')
         sys.exit(1)
     
     if isinstance(fmt, str):
@@ -60,7 +62,8 @@ def download(tid, fmt='pdf', outfile='', **kwargs):
     code = msg.rstrip().split(':')[0]
     if code == 'ERROR':
         error('Tree download failed due to the following reason:\n\t{}'.format(msg))
-        sys.exit(1)
+    elif code.startswith('Invalid'):
+        error('Download failed due to the following reason:\n\t{}'.format(msg))
     else:
         outfile = outfile if outfile else 'iTOL.download.{}'.format(fmt)
         try:
@@ -81,7 +84,7 @@ if __name__ == '__main__':
     parse = argparse.ArgumentParser(description=des, prog='itol-download', usage='%(prog)s TREEID [OPTIONS]',
                                     epilog=epilog)
     
-    parse.add_argument('TREEID', help='Tree ID assigned by ITOL when you upload data.')
+    parse.add_argument('TREEID', help='Tree ID or URL assigned by ITOL when you upload data.')
     parse.add_argument('-f', help='Output file format, default: pdf. '
                                   'Graphical formats: svg, eps, pdf and png. '
                                   'Text formats: newick, nexus and phyloxml.', default='pdf')
