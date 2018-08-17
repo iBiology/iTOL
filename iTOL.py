@@ -29,6 +29,9 @@ warn, info, error = logger.warning, logger.info, logger.error
 DELIMITER = {'TAB': '\t', 'SPACE': ' ', 'COMMA': ','}
 UPLOAD_URL = "http://itol.embl.de/batch_uploader.cgi"
 DOWNLOAD_URL = "http://itol.embl.de/batch_downloader.cgi"
+s1 = 'A=#d2d0c9,M=#d2d0c9,I=#d2d0c9,L=#d2d0c9,V=#d2d0c9,P=#746f69,G=#746f69,C=#746f69,F=#d0ad16,Y=#d0ad16'
+s2 = 'W=#d0ad16,S=#34acfb,T=#34acfb,N=#34acfb,Q=#34acfb,R=#34fb54,K=#34fb54,H=#34fb54,D=#fb4034,E=#fb4034'
+COLOR_SCHEME = 'CUSTOM_COLOR_SCHEME,COLOR_SCHEME,{},{}'.format(s1, s2)
 
 
 def _sd(data, separator):
@@ -575,15 +578,48 @@ class TOL(object):
         """
         _args(locals(), data, separator, outfile, 'DATASET_SYMBOL', self.wd)
     
-    def msa(self, data, separator='comma', dataset_label='msa', color='#ff0000', custom_color_scheme='',
-            outfile='msa.txt', **kwargs):
+    def alignment(self, data, separator='comma', dataset_label='alignment', color='#ff0000',
+                  custom_color_scheme=COLOR_SCHEME, outfile='alignment.txt', **kwargs):
         """
         Handles multiple sequence alignments visualization.
         
-        :param data: str, alignment in FASTA format.
-        See http://itol.embl.de/help/dataset_alignment_template.txt for more details.
+        :param data: str, path of an alignment file (in FASTA format). See
+        `help/dataset_alignment_template.txt <http://itol.embl.de/help/dataset_alignment_template.txt>`_ for details.
         """
-        pass
+        
+        args = locals()
+        for arg in ('self', 'data', 'separator', 'outfile'):
+            args.pop(arg)
+
+        if isinstance(separator, str):
+            s = separator.upper()
+            if s in DELIMITER:
+                sep = 'SEPARATOR {}'.format(s)
+                delimiter = s
+            else:
+                raise ValueError(
+                    'Argument sep should be one of these: {} (case insensitive).'.format(', '.join(DELIMITER)))
+        else:
+            raise ValueError('Argument sep should be a string, e.g. tab, TAB, comma, COMMA, space or SPACE.')
+        
+        try:
+            with open(data) as f:
+                data_block = f.read()
+        except IOError:
+            raise IOError('File {} may not be a alignment file or does not exist.'.format(data))
+
+        setting_block = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args.items() if v])
+
+        text = '\n'.join(['DATASET_ALIGNMENT', sep, setting_block, 'DATA', data_block])
+
+        if not isinstance(outfile, str):
+            raise ValueError('Argument outfile should be a string!')
+
+        if not outfile.endswith('.txt'):
+            outfile = ''.join([outfile, '.txt'])
+
+        with open(os.path.join(self.wd, outfile), 'w') as out:
+            out.write(text)
 
     def line(self, data, separator='comma', dataset_label='line', color='#ff0000', line_colors='', axis_x='', axis_y='',
             outfile='line.txt', **kwargs):
@@ -723,8 +759,12 @@ class TOL(object):
         
         respond = requests.get(DOWNLOAD_URL, params=args)
         msg = respond.text.rstrip()
+        print(msg)
         code = msg.split(':')[0]
         if code == 'ERROR':
+            error('Download failed due to the following reason:\n\t{}'.format(msg))
+            sys.exit(1)
+        elif code.startswith('Invalid'):
             error('Download failed due to the following reason:\n\t{}'.format(msg))
             sys.exit(1)
         else:
