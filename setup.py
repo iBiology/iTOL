@@ -10,7 +10,7 @@ wd = os.path.abspath(os.path.dirname(__file__))
 
 setup(name='iTOL',
       version=VERSION,
-      description='Python API for phylogenetic tree visualization in Interactive Tree of Life (http://iTOL.embl.de>)',
+      description='Python API for phylogenetic tree visualization in Interactive Tree of Life (http://iTOL.embl.de)',
       long_description=open(os.path.join(wd, 'README.rst')).read(),
       url='https://github.com/iBiology/iTOL',
       author='FEI YUAN',
@@ -19,6 +19,7 @@ setup(name='iTOL',
       packages=find_packages(),
       install_requires=['requests>=2.12.4'],
       scripts=['Scripts/itol.py'],
+      include_package_data=True,
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
