@@ -1,0 +1,10 @@
+2018-08-17 11:22:58 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\image\iTOL.tree.zip.
+2018-08-17 11:22:58 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\image\iTOL.tree.zip to ITOL server.
+2018-08-17 11:22:59 WARNING [iTOL] Upload successfully, but you get the following warning message: 
+	WARNING: DATASET_IMAGE is not supported in batch mode yet. Please contact ivica@letunic.com to request support for it.
+2018-08-17 11:22:59 INFO [iTOL] You can access the tree using the following iTOL tree ID: 
+	129710632116791534522950
+2018-08-17 11:22:59 INFO [iTOL] You can also view your tree in browser using the following URL: 
+	https://itol.embl.de/tree/129710632116791534522950
+2018-08-17 11:23:36 ERROR [iTOL] Download failed due to the following reason:
+	Invalid SVG received from headless browser.

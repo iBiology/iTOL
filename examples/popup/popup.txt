@@ -1,0 +1,6 @@
+POPUP_INFO
+SEPARATOR COMMA
+
+DATA
+6304|7550,This is the popup title,<h1>Some header</h1><p>Information comes here</p><img src="https://images-na.ssl-images-amazon.com/images/I/91gyeWnRc2L._SL1500_.jpg"/>
+6321,Zbumxj osiapem, info popup,<h1>Homo sapiens</h1><p style="color:blue">More info at<a target="_blank" href="https://en.wikipedia.org/wiki/Binomial_nomenclature"> WiKi</a></p>

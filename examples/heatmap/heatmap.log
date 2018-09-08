@@ -1,0 +1,28 @@
+2018-08-16 19:00:05 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:00:05 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:00:06 ERROR [iTOL] Upload failed due to the following reason:
+	ERR 13: In heatmap.txt: For node '8518', number of values does not match the number of field labels.
+2018-08-16 19:00:48 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:00:48 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:00:49 ERROR [iTOL] Upload failed due to the following reason:
+	ERR 13: In heatmap.txt: For node '8518', number of values does not match the number of field labels.
+2018-08-16 19:03:57 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:03:57 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:03:58 ERROR [iTOL] Upload failed due to the following reason:
+	ERR 13: In heatmap.txt: For node '8518', number of values does not match the number of field labels.
+2018-08-16 19:04:25 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:04:25 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:04:26 ERROR [iTOL] Upload failed due to the following reason:
+	In file heatmap.txt: Unknown variable 'KWARGS'
+2018-08-16 19:06:03 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:06:03 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:06:05 ERROR [iTOL] Upload failed due to the following reason:
+	ERR 13: In heatmap.txt: For node '8518', number of values does not match the number of field labels.
+2018-08-16 19:07:15 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip.
+2018-08-16 19:07:15 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.tree.zip to ITOL server.
+2018-08-16 19:07:16 INFO [iTOL] Upload successfully. You can access the tree using the following iTOL tree ID: 
+	129710632386061534464407
+2018-08-16 19:07:16 INFO [iTOL] You can also view your tree in browser using the following URL: 
+	https://itol.embl.de/tree/129710632386061534464407
+2018-08-16 19:07:36 INFO [iTOL] Download successfully and data has been saved to:
+	C:\Users\tianz\OneDrive\iTOL\examples\heatmap\iTOL.download.pdf

@@ -1,0 +1,10 @@
+2018-08-17 11:03:08 INFO [iTOL] Creating ZIP file C:\Users\tianz\OneDrive\iTOL\examples\line\iTOL.tree.zip.
+2018-08-17 11:03:08 INFO [iTOL] Uploading ZIP file C:\Users\tianz\OneDrive\iTOL\examples\line\iTOL.tree.zip to ITOL server.
+2018-08-17 11:03:09 WARNING [iTOL] Upload successfully, but you get the following warning message: 
+	WARNING: DATASET_LINECHART is not supported in batch mode yet. Please contact ivica@letunic.com to request support for it.
+2018-08-17 11:03:09 INFO [iTOL] You can access the tree using the following iTOL tree ID: 
+	12971063285481534521760
+2018-08-17 11:03:09 INFO [iTOL] You can also view your tree in browser using the following URL: 
+	https://itol.embl.de/tree/12971063285481534521760
+2018-08-17 11:03:47 ERROR [iTOL] Download failed due to the following reason:
+	Invalid SVG received from headless browser.

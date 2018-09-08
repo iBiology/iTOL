@@ -1,0 +1,9 @@
+DATASET_IMAGE
+SEPARATOR COMMA
+COLOR,#ff0000
+DATASET_LABEL,image
+DATA
+8518,-1,1,0,0,0,http://itol.embl.de/img/species/9606.jpg
+6529,1,1,0,0,0,http://itol.embl.de/img/species/4530.jpg
+6321,1,1,0,0,0,http://smart.embl.de/smart/DDvec.cgi?smart=1086:TyrKc(189|448)+SH3(454|510)+Pfam_Inhibitor_Mig-6(852|918)+0(57|62)+1(117|122)+0(141|146)+0(215|220)+0(266|271)+2(358|363)+0(401|406)+0(450|455)+2(481|486)+2(546|551)+1(577|582)+1(592|597)+0(1042|1047)+2(1084|1089)+0(1086|1091)
+5784|729,0,1,90,0,0,http://itol.embl.de/img/species/6239.jpg

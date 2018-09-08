@@ -1,0 +1,7 @@
+TREE_COLORS
+SEPARATOR COMMA
+
+DATA
+8518,label,#00ff00,bold-italic,2
+6529,label,#00ff00,bold-italic,2
+6321,label,#00ff00,bold-italic,2

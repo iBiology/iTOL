@@ -1,0 +1,10 @@
+LABELS
+SEPARATOR COMMA
+
+DATA
+8518,Baq hxzgs
+6529,Wjk nduvpbl
+6321,Zbumxj osiapem
+5784|7550,Clade A
+7396|2154,Clade B
+2055|539,Clade C

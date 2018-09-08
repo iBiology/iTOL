@@ -1,0 +1,8 @@
+DATASET_TEXT
+SEPARATOR COMMA
+COLOR,#ff0000
+DATASET_LABEL,text
+DATA
+8518,Baq hxzgs,-1,#0000ff,bold,2,0
+6529,Wjk nduvpbl,0,#00ff00,italic,1
+6321,Zbumxj osiapem,1,#ff8000,bold-italic,1
