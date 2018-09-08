@@ -163,8 +163,8 @@ class TOL(object):
             tree = os.path.abspath(zfile)
         else:
             tree = None
-            error('ValueError: Neither tree file nor ZIP file was provided.')
             if leave:
+                error('ValueError: Neither tree file nor ZIP file was provided.')
                 sys.exit(1)
         
         if wd:
@@ -838,7 +838,7 @@ def main():
             will be ignored, while you are downloading, the '-n' option for a tree name will also be ignored.
             """
     
-    parse = argparse.ArgumentParser(description=des, prog='itol.py',
+    parse = argparse.ArgumentParser(description=des, prog='itol',
                                     usage='%(prog)s DATA [OPTIONS]',
                                     epilog=epilog)
     
@@ -896,4 +896,4 @@ def main():
 
         
 if __name__ == '__main__':
-    pass
+    main()

@@ -1,8 +1,7 @@
-iTOL Python API and Command-Line Tool
-=====================================
+====
+iTOL
+====
 
-Table of Contents
------------------
 
     * `About`_
     * `Installation`_
@@ -10,20 +9,21 @@ Table of Contents
         * `From Shell`_
         * `From Python`_
     * `Bugs and Comments`_
-    * `Development`_
+    * `Bugs and Comments`_
 
 About
------
+=====
 
-Python API and a command-line tool for the Tree of Life (`iTOL <http://iTOL.embl.de>`_).
+`iTOL` provides a Python API and a command-line tool for the Tree of Life (`iTOL <http://iTOL.embl.de>`_).
 
-This API is intentionally designed for interacting with iTOL server. The author suggests use this API to handle big
-datasets or programmatically manipulated phylogenetic trees and associated annotation datasets. The API allows users
-interact with iTOL server using Python or shell. In order to visualize your data, an active internet connection to iTO
-server is required.
+This API is intentionally designed for interacting with iTOL server. The author suggests use this
+API to handle big datasets or programmatically manipulated phylogenetic trees and associated
+annotation datasets. The API allows users interact with iTOL server using Python or shell. In order
+to visualize your data, an active internet connection to iTO server is required.
+
 
 Installation
-------------
+============
 
 ``iTOL`` has been uploaded to `PyPI <https://pypi.org/>`_, so the easiest way to install it is via ``pip``:
 
@@ -31,21 +31,20 @@ Installation
 
     pip install iTOL
 
+
 Usage
------
+=====
 
 From Shell
-~~~~~~~~~~
+----------
 
-If you only want to upload/download existing tree file and/or associated dataset files, you are encouraged to use the
-command-line tool ``itol.py`` from a shell.
+If you only want to upload/download existing tree file and/or associated dataset files, you are
+encouraged to use the command-line tool ``itol`` from a shell.
 
-Check the usage of ``itol.py`` first:
+Check the usage of command-line too ``itol`` first::
 
-.. code-block:: shell
-
-    $ itol.py -h
-    usage: itol.py DATA [OPTIONS]
+    $ itol -h
+    usage: itol DATA [OPTIONS]
 
     Command line tool for ITOL (http://itol.embl.de) bach access.
 
@@ -64,72 +63,56 @@ Check the usage of ``itol.py`` first:
       -o O                Path of the output file.
       -a                  Force zip all text files along with the tree file.
 
-Upload a tree file to iTOL server:
+Upload a tree file to iTOL server::
 
-.. code-block:: shell
+    $ itol /path/to/tree_file
 
-    $ itol.py /path/to/tree_file
+Upload a tree file to iTOL server and using a uploadID and project name::
 
-Upload a tree file to iTOL server and using a uploadID and project name:
+    $ itol /path/to/tree_file -i uploadID -p project_name
 
-.. code-block:: shell
+Upload a tree file to iTOL server and using a uploadID, project name and assign a tree name::
 
-    $ itol.py /path/to/tree_file -i uploadID -p project_name
+    $ itol /path/to/tree_file -i uploadID -p project_name -n tree_name
 
-Upload a tree file to iTOL server and using a uploadID, project name and assign a tree name:
+Upload a tree file to iTOL server and using a uploadID, project name and, tree name and a tree
+description::
 
-.. code-block:: shell
+    $ itol /path/to/tree_file -i uploadID -p project_name -n tree_name -d tree_description
 
-    $ itol.py /path/to/tree_file -i uploadID -p project_name -n tree_name
+Download a image of a tree from iTOL server using treeID::
 
-Upload a tree file to iTOL server and using a uploadID, project name and, tree name and a tree description:
+    $ itol treeID
 
-.. code-block:: shell
+Download a image of a tree from iTOL server using tree URL::
 
-    $ itol.py /path/to/tree_file -i uploadID -p project_name -n tree_name -d tree_description
+    $ itol tree_URL
 
-Download a image of a tree from iTOL server using treeID:
+Download a image of a tree from iTOL server using tree URL and save in ``png`` format::
 
-.. code-block:: shell
+    $ itol tree_URL -f png
 
-    $ itol.py treeID
+Download a image of a tree from iTOL server using tree URL and save in ``png`` format with name of
+``iTOL.png``::
 
-Download a image of a tree from iTOL server using tree URL:
+    $ itol tree_URL -f png -o iTOL.png
 
-.. code-block:: shell
+Download a image of a tree from iTOL server and display it in circular mode::
 
-    $ itol.py tree_URL
+    $ itol tree_URL --display_mode 2
 
-Download a image of a tree from iTOL server using tree URL and save in ``png`` format:
+Download a image of a tree from iTOL server, display it in circular mode and make the first dataset
+visible::
 
-.. code-block:: shell
-
-    $ itol.py tree_URL -f png
-
-Download a image of a tree from iTOL server using tree URL and save in ``png`` format with name of ``iTOL.png``:
-
-.. code-block:: shell
-
-    $ itol.py tree_URL -f png -o iTOL.png
-
-Download a image of a tree from iTOL server and display it in circular mode:
-
-.. code-block:: shell
-
-    $ itol.py tree_URL --display_mode 2
-
-Download a image of a tree from iTOL server, display it in circular mode and make the first dataset visible:
-
-.. code-block:: shell
-
-    $ itol.py tree_URL --display_mode 2 --datasets_visible 0
+    $ itol tree_URL --display_mode 2 --datasets_visible 0
 
 
 From Python
-~~~~~~~~~~~
+-----------
 
-Using ``iTOL`` module from Python Shell or script is much more flexible than using the command-line tool from shell and
-users are able to access all methods for generating annotation files and interact with iTOL server inside python.
+Using ``iTOL`` module from Python Shell or script is much more flexible than using the command-line
+tool from shell and users are able to access all methods for generating annotation files and interact
+with iTOL server inside python.
 
 .. code-block:: python
 
@@ -169,21 +152,27 @@ users are able to access all methods for generating annotation files and interac
     # Download the tree image in png format and save it to iTOL.png
     t.download(fmt='png', outfile='iTOL.png')
 
-    # Download the tree image display in circular mode, both datasets visible,and save it to iTOL.png file in png format
+    # Download the tree image display in circular mode, both datasets visible,and save it to
+    # iTOL.png file in png format
     t.download(fmt='png', outfile='iTOL_visible.png', display_mode=2, datasets_visible='0,1')
 
-Since using ``iTOL`` module in Python is more flexible, users are strongly encouraged to check out the ``examples``
+Since using ``iTOL`` module in Python is more flexible, users are strongly encouraged to check
+out the ``examples``
 directory for more examples.
 
-Bugs and Comments
------------------
 
-Please send bugs and comments as issues to the `Github <https://github.com/iBiology/iTOL>`_ repository of this module.
+Bugs and Comments
+=================
+
+Please send bugs and comments as issues to the `Github <https://github.com/iBiology/iTOL>`_
+repository of this module.
+
 
 Development
------------
+===========
 
-Users or developers are **NOT** encouraged to directly run the example code stored in the ``examples`` directory. If
-you want to run these codes to test `iTOL`, the author **STRONGLY** suggest that you create an account on iTOL website,
-and replace the upload ID in these examples. Without replacing the upload ID, you may upload all your data into a Demo
-or Program project set by the author and mess up the whole project.
+Users or developers are **NOT** encouraged to directly run the example code stored in the
+``examples`` directory. If you want to run these codes to test `iTOL`, the author **STRONGLY**
+suggest that you create an account on iTOL website, and replace the upload ID in these examples.
+Without replacing the upload ID, you may upload all your data into a Demo or Program project
+set by the author and mess up the whole project.
