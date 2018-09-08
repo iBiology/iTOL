@@ -1,0 +1,1036 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>iTOL &mdash; iTOL alpha documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> iTOL
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">iTOL</a><ul>
+<li><a class="reference internal" href="#about">About</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#use-in-terminal">Use in terminal</a></li>
+<li><a class="reference internal" href="#use-in-python">Use in Python</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bugs-and-comments">Bugs and Comments</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#module-iTOL.iTOL">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">iTOL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>iTOL</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="itol">
+<h1>iTOL<a class="headerlink" href="#itol" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#about">About</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="#usage">Usage</a></dt>
+<dd><ul class="first last">
+<li><a class="reference internal" href="#use-in-terminal">Use in terminal</a></li>
+<li><a class="reference internal" href="#use-in-python">Use in Python</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><a class="reference internal" href="#bugs-and-comments">Bugs and Comments</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</div></blockquote>
+<div class="section" id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p>iTOL provides a Python API and a command-line tool for the Tree of Life (<a class="reference external" href="http://iTOL.embl.de">iTOL</a>).</p>
+<p>This API is intentionally designed for interacting with iTOL server. The author suggests use this
+API to handle big datasets or programmatically manipulated phylogenetic trees and associated
+annotation datasets. The API allows users interact with iTOL server using Python or shell. In order
+to visualize your data, an active internet connection to iTO server is required.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">iTOL</span></code> has been uploaded to <a class="reference external" href="https://pypi.org/">PyPI</a>, so the easiest way to install it is via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install iTOL
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-in-terminal">
+<h3>Use in terminal<a class="headerlink" href="#use-in-terminal" title="Permalink to this headline">¶</a></h3>
+<p>If you only want to upload/download existing tree file and/or associated dataset files, you are
+encouraged to use the command-line tool <code class="docutils literal notranslate"><span class="pre">itol</span></code> from a terminal.</p>
+<p>Check the usage of command-line too <code class="docutils literal notranslate"><span class="pre">itol</span></code> first:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol -h
+usage: itol DATA [OPTIONS]
+
+Command line tool for ITOL (http://itol.embl.de) bach access.
+
+positional arguments:
+  DATA                A tree file name, a ZIP file name, a tree ID or URL.
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -i uploadID         Your upload ID (ID for batch uploading).
+  -n treeName         The name you assigned to the tree.
+  -p projectName      Project name, required if uploadID is assigned.
+  -d treeDescription  Description of your tree.
+  -f F                Output file format, default: pdf. Graphical formats:
+                      svg, eps, pdf and png; text formats: newick, nexus and
+                      phyloxml
+  -o O                Path of the output file.
+  -a                  Force zip all text files along with the tree file.
+</pre></div>
+</div>
+<p>Upload a tree file to iTOL server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol /path/to/tree_file
+</pre></div>
+</div>
+<p>Upload a tree file to iTOL server and using a uploadID and project name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol /path/to/tree_file -i uploadID -p project_name
+</pre></div>
+</div>
+<p>Upload a tree file to iTOL server and using a uploadID, project name and assign a tree name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol /path/to/tree_file -i uploadID -p project_name -n tree_name
+</pre></div>
+</div>
+<p>Upload a tree file to iTOL server and using a uploadID, project name and, tree name and a tree
+description:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol /path/to/tree_file -i uploadID -p project_name -n tree_name -d tree_description
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server using treeID:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol treeID
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server using tree URL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol tree_URL
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server using tree URL and save in <code class="docutils literal notranslate"><span class="pre">png</span></code> format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol tree_URL -f png
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server using tree URL and save in <code class="docutils literal notranslate"><span class="pre">png</span></code> format with name of
+<code class="docutils literal notranslate"><span class="pre">iTOL.png</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol tree_URL -f png -o iTOL.png
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server and display it in circular mode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol tree_URL --display_mode 2
+</pre></div>
+</div>
+<p>Download a image of a tree from iTOL server, display it in circular mode and make the first dataset
+visible:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ itol tree_URL --display_mode 2 --datasets_visible 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-in-python">
+<h3>Use in Python<a class="headerlink" href="#use-in-python" title="Permalink to this headline">¶</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">iTOL</span></code> module from Python Shell or script is much more flexible than using the command-line
+tool from shell and users are able to access all methods for generating annotation files and interact
+with iTOL server inside python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">iTOL</span> <span class="kn">import</span> <span class="n">TOL</span>
+
+<span class="c1"># Initiate the base class by providing a tree file and work directory (not always necessary)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">TOL</span><span class="p">(</span><span class="n">tfile</span><span class="o">=</span><span class="s1">&#39;path/to/tree_file&#39;</span><span class="p">,</span> <span class="n">wd</span><span class="o">=</span><span class="s1">&#39;path/to/work/directory&#39;</span><span class="p">)</span>
+
+<span class="c1"># Data for coloring the tree</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff8000&#39;</span><span class="p">,</span> <span class="s1">&#39;bold-italic&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529|8463&#39;</span><span class="p">,</span> <span class="s1">&#39;clade&#39;</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;8090|8033&#39;</span><span class="p">,</span> <span class="s1">&#39;clade&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;7539|1744&#39;</span><span class="p">,</span> <span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;5784|7550&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;Group A&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;7396|2154&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#aaffaa&#39;</span><span class="p">,</span> <span class="s1">&#39;Group B&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;2055|539&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#aaaaff&#39;</span><span class="p">,</span> <span class="s1">&#39;Group C&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+<span class="c1"># Generating annotation file for color setting</span>
+<span class="n">t</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Data for making pie chart</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">)]</span>
+
+<span class="c1"># Generating annotation file for pie char</span>
+<span class="n">t</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Upload the tree and the generated annotation files to iTOL server</span>
+<span class="n">t</span><span class="o">.</span><span class="n">upload</span><span class="p">(</span><span class="n">uid</span><span class="o">=</span><span class="s1">&#39;You upload ID&#39;</span><span class="p">,</span> <span class="n">tn</span><span class="o">=</span><span class="s1">&#39;tree Name&#39;</span><span class="p">,</span> <span class="n">pn</span><span class="o">=</span><span class="s1">&#39;project name&#39;</span><span class="p">,</span> <span class="n">td</span><span class="o">=</span><span class="s1">&#39;tree description&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download the tree image (using default name and default format)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+
+<span class="c1"># Download the tree image in png format and save it to iTOL.png</span>
+<span class="n">t</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;iTOL.png&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download the tree image display in circular mode, both datasets visible,and save it to</span>
+<span class="c1"># iTOL.png file in png format</span>
+<span class="n">t</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;iTOL_visible.png&#39;</span><span class="p">,</span> <span class="n">display_mode</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">datasets_visible</span><span class="o">=</span><span class="s1">&#39;0,1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since using <code class="docutils literal notranslate"><span class="pre">iTOL</span></code> module in Python is more flexible, users are strongly encouraged to check
+out the <code class="docutils literal notranslate"><span class="pre">examples</span></code>
+directory for more examples.</p>
+</div>
+</div>
+<div class="section" id="bugs-and-comments">
+<h2>Bugs and Comments<a class="headerlink" href="#bugs-and-comments" title="Permalink to this headline">¶</a></h2>
+<p>Please send bugs and comments as issues to the <a class="reference external" href="https://github.com/iBiology/iTOL">Github</a>
+repository of this module.</p>
+</div>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<p>Users or developers are <strong>NOT</strong> encouraged to directly run the example code stored in the
+<code class="docutils literal notranslate"><span class="pre">examples</span></code> directory. If you want to run these codes to test <cite>iTOL</cite>, the author <strong>STRONGLY</strong>
+suggest that you create an account on iTOL website, and replace the upload ID in these examples.
+Without replacing the upload ID, you may upload all your data into a Demo or Program project
+set by the author and mess up the whole project.</p>
+</div>
+<div class="section" id="module-iTOL.iTOL">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-iTOL.iTOL" title="Permalink to this headline">¶</a></h2>
+<p>Python API for phylogenetic tree visualization in Interactive Tree of Life (<a class="reference external" href="http://iTOL.embl.de">ITOL</a>).</p>
+<p>TODO: add method handles data <code class="docutils literal notranslate"><span class="pre">get()</span></code> and <code class="docutils literal notranslate"><span class="pre">post()</span></code> methods using built-in <code class="docutils literal notranslate"><span class="pre">urllib</span></code> instead of <code class="docutils literal notranslate"><span class="pre">requests</span></code>.
+TODO: add support for Python 2. Current codes have only been tested under Python 3.6 (August 17, 2018)</p>
+<dl class="class">
+<dt id="iTOL.iTOL.TOL">
+<em class="property">class </em><code class="descclassname">iTOL.iTOL.</code><code class="descname">TOL</code><span class="sig-paren">(</span><em>tfile=''</em>, <em>zfile=''</em>, <em>wd='iTOL'</em>, <em>leave=True</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class Handles tree visualization in Interactive Tree of Life (<a class="reference external" href="http://iTOL.embl.de">ITOL</a>).</p>
+<p>Method upload handles upload tree to iTOL and download handles image download (or export). All other methods are
+designed to generate annotation files.</p>
+<p>Except upload and download methods, all methods have a positional argument <code class="docutils literal notranslate"><span class="pre">data</span></code> which is a nested list
+consisting of tuples or lists. Elements in each inner tuple or list are described within each method. All these
+methods also have two common optional arguments: <code class="docutils literal notranslate"><span class="pre">separator</span></code> and <code class="docutils literal notranslate"><span class="pre">outfile</span></code>. The former was set to comma as its
+default value and the later joins method name and text file extension (.txt) as the default name of the notation
+file. Users are strongly encouraged to modify these two arguments according to their datasets. For each method,
+all keywords in mandatory and optional settings that only can be set within annotation file are elaborated
+listed as keyword argument (lower case) along with their default values. Keywords for optional settings can be
+set or changed later in the web interface are not listed, if user need to pass them to concerned method,
+they can be passed as additional keyword arguments (use lower cases argument name). Each method will generate an
+annotation file in specified work directory if the method call did not fail. The doc string for each method only
+listed information about the positional argument and some keyword arguments, for information about the rest of
+arguments and details can be found in <a class="reference external" href="http://itol.embl.de/help.cgi">ITOL help page</a> or annotation template files.</p>
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.alignment">
+<code class="descname">alignment</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='alignment'</em>, <em>color='#ff0000'</em>, <em>custom_color_scheme='CUSTOM_COLOR_SCHEME</em>, <em>COLOR_SCHEME</em>, <em>A=#d2d0c9</em>, <em>M=#d2d0c9</em>, <em>I=#d2d0c9</em>, <em>L=#d2d0c9</em>, <em>V=#d2d0c9</em>, <em>P=#746f69</em>, <em>G=#746f69</em>, <em>C=#746f69</em>, <em>F=#d0ad16</em>, <em>Y=#d0ad16</em>, <em>W=#d0ad16</em>, <em>S=#34acfb</em>, <em>T=#34acfb</em>, <em>N=#34acfb</em>, <em>Q=#34acfb</em>, <em>R=#34fb54</em>, <em>K=#34fb54</em>, <em>H=#34fb54</em>, <em>D=#fb4034</em>, <em>E=#fb4034'</em>, <em>outfile='alignment.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles multiple sequence alignments visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – str, path of an alignment file (in FASTA format). See
+<a class="reference external" href="http://itol.embl.de/help/dataset_alignment_template.txt">help/dataset_alignment_template.txt</a> for details.</td>
+</tr>
+</tbody>
+</table>
+<p>TODO: add support for handling alignment files in different formats (i.e. phylip, clustal, …)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.binary">
+<code class="descname">binary</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='binary'</em>, <em>color='#ff0000'</em>, <em>field_shapes='1'</em>, <em>field_labels='f1'</em>, <em>field_colors='#ff0000'</em>, <em>outfile='binary.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles binary datasets visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 2 elements which define node id and one shape or combined shapes.
+If use combined shapes, the delimiter between different shapes should be consisted with the argument separator.
+See <a class="reference external" href="http://itol.embl.de/help/dataset_binary_template.txt">dataset_binary_template.txt</a> for more details.</p>
+<ul class="simple">
+<li>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure.</li>
+<li>The field_shapes define the shape of four fields corresponding to data.</li>
+<li>The shape_labels define the label of each field.</li>
+<li>The field_colors define the color of each field.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;1,0,-1,0&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2055</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">filed_shape</span> <span class="o">=</span> <span class="s1">&#39;2,4,5,1&#39;</span>
+<span class="n">field_labels</span> <span class="o">=</span> <span class="s1">&#39;f2,f4,f5,f1&#39;</span>
+<span class="n">field_colors</span> <span class="o">=</span> <span class="s1">&#39;#ff0000,#00ff00,#ffff00,#ff8000&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.boxplot">
+<code class="descname">boxplot</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='boxplot'</em>, <em>color='#ff0000'</em>, <em>dataset_scale=''</em>, <em>outfile='boxplot.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.boxplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles boxplot visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 2 elements which define node id(s) and multiple values. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_boxplot_template.txt">dataset_boxplot_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID1,
+minimum, q1, median, q3, maximum, value1, …):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.color">
+<code class="descname">color</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>outfile='color.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles branch colors, styles, colored ranges and label colors/front style (TREE_COLORS annotation file).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 3 elements which define the node, type and color in order.
+Possible types are range, clade, branch, and label, an additional element may be optional or required.
+See <a class="reference external" href="http://itol.embl.de/help/colors_styles_template.txt">colors_styles_template.txt</a> for more details.</p>
+<dl class="docutils">
+<dt>The nested list <code class="docutils literal notranslate"><span class="pre">colors</span></code> shows a general data structure and these data will set:</dt>
+<dd><ul class="first last simple">
+<li>Leaf label for node 8518 will be displayed in purple</li>
+<li>Leaf label for node 6529 will be displayed in green, bold and twice the regular font size</li>
+<li>Leaf label for node 6321 will be displayed in orange, bold italic and half the regular font size</li>
+<li>Internal clade with solid branches and colored in purple</li>
+<li>Internal clade with dashed branches and colored in yellow</li>
+<li>Internal branch with dashed branches and colored in green</li>
+<li>Colored range in red</li>
+<li>Colored range in green</li>
+<li>Colored range in purple</li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff8000&#39;</span><span class="p">,</span> <span class="s1">&#39;bold-italic&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;6529|8463&#39;</span><span class="p">,</span> <span class="s1">&#39;clade&#39;</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;8090|8033&#39;</span><span class="p">,</span> <span class="s1">&#39;clade&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;7539|1744&#39;</span><span class="p">,</span> <span class="s1">&#39;branch&#39;</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;5784|7550&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;Group A&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;7396|2154&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#aaffaa&#39;</span><span class="p">,</span> <span class="s1">&#39;Group B&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;2055|539&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;#aaaaff&#39;</span><span class="p">,</span> <span class="s1">&#39;Group C&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.connection">
+<code class="descname">connection</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='connection'</em>, <em>color='#ff0000'</em>, <em>legend_title=''</em>, <em>legend_shapes=0</em>, <em>legend_colors=0</em>, <em>legend_labels=0</em>, <em>outfile='connection.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles connections visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have 5 elements which define a single connection between 2 nodes and consists
+of the following format: NODE1, NODE2, WIDTH, COLOR, LABEL. Color can be specified in hexadecimal string. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_connections_template.txt">dataset_connections_template.txt</a> for details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (NODE1,
+NODE2, WIDTH, COLOR, LABEL):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">2055</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="s1">&#39;Con-A&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;7396&#39;</span><span class="p">,</span> <span class="mi">7102</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;#ffff00&#39;</span><span class="p">,</span> <span class="s1">&#39;Con-B&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.domain">
+<code class="descname">domain</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='domain'</em>, <em>color='#ff0000'</em>, <em>width=1000</em>, <em>dataset_scale=0</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='domain.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles protein domains visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 3 elements which define node id(s), total protein length (an
+integer) and unlimited number of domain definition strings.
+Each domain definition string consists of 5 parts, separated with vertical lines: shape|start|end|color|label
+See <a class="reference external" href="http://itol.embl.de/help/dataset_boxplot_template.txt">http://itol.embl.de/help/dataset_boxplot_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID1, length, D1, D2, D3, …):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="s1">&#39;RE|100|150|#ff0000|SH2&#39;</span><span class="p">,</span> <span class="s1">&#39;EL|400|500|#0000ff|SH3&#39;</span><span class="p">,</span> <span class="s1">&#39;OC|700|900|#00ff00|PH&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>tid=''</em>, <em>fmt='pdf'</em>, <em>outfile=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download (or export) data from ITOL server (batch download).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tid</strong> – str, ITOL tree ID or URL (of the tree) which will be exported.</li>
+<li><strong>fmt</strong> – str, output file format, supported values are: svg, eps, pdf and png for graphical formats and
+newick, nexus and phyloxml for text formats.</li>
+<li><strong>outfile</strong> – str, path of the output file.</li>
+<li><strong>kwargs</strong> – optional parameters see <a class="reference external" href="https://itol.embl.de/help.cgi#bExOpt">https://itol.embl.de/help.cgi#bExOpt</a> for more details.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, path of the output file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.gradient">
+<code class="descname">gradient</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='gradient'</em>, <em>color='#ff0000'</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='gradient.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles colored gradients</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or list.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have 2 elements which define node id(s) and a value. Internal tree nodes can be
+specified using IDs, or using the ‘last common ancestor’ method described in
+<cite>ITOL help page &lt;http://itol.embl.de/help.cgi&gt;</cite>. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_gradient_template.txt">dataset_gradient_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID and and a value):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">330</span><span class="p">),</span> <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">2055</span><span class="p">,</span> <span class="mi">403</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;9151&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;1921&#39;</span><span class="p">,</span> <span class="mi">360</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.heatmap">
+<code class="descname">heatmap</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='heatmap'</em>, <em>color='#ff0000'</em>, <em>field_labels='f1 f2 f3 f4 f5 f6'</em>, <em>field_tree=''</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='heatmap.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles heatmap visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 2 elements which define node id(s) and multiple values.
+See <a class="reference external" href="http://itol.embl.de/help/dataset_heatmap_template.txt">dataset_heatmap_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, value1,
+value2, value3…):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The field_labels define name of four fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">field_labels</span> <span class="o">=</span> <span class="s1">&#39;A,B,C,D&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.image">
+<code class="descname">image</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='image'</em>, <em>color='#ff0000'</em>, <em>outfile='image.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handling image dataset visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have 7 elements which define node id, position, size_factor, rotation,
+horizontal_shift, vertical_shift, and image_url.
+See <a class="reference external" href="https://itol.embl.de/help/dataset_image_template.txt">dataset_image_template.txt</a> for more details.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;9606&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;http://itol.embl.de/img/species/9606.jpg&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;4530&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;http://itol.embl.de/img/species/4530.jpg&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;6239|6239&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;http://itol.embl.de/img/species/6239.jpg&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">DATASET_IMAGE is not supported in batch mode yet, this method can be used to generated the
+data file for image. When you try to upload the data file to the ITOL server, a warning will be
+issued. If you try to use the <code class="docutils literal notranslate"><span class="pre">.download()</span></code> method to download data, an error (Invalid SVG received from
+headless browser) will be logged. The purpose of this method is mainly for programmatically generating
+hte data file for image. In future, if batch access of DATASET_IMAGE is allowed, then you can feel free to
+use the full function of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.label">
+<code class="descname">label</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>outfile='label.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handling the text assigned to leaf nodes, or changing the internal node names (displayed in mouse-over popups).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or lists should have 2 elements which define node id and label. Internal tree nodes can be
+specified using IDs directly, or using the ‘last common ancestor’ method described in iTOL help pages.
+See <a class="reference external" href="http://itol.embl.de/help/labels_template.txt">labels_template.txt</a> for more details.</p>
+<dl class="docutils">
+<dt>The nested list <code class="docutils literal notranslate"><span class="pre">colors</span></code> shows a general data structure and these data will set:</dt>
+<dd><ul class="first last simple">
+<li>Leaf label for node 8518 will be renamed to Baq hxzgs</li>
+<li>Leaf label for node 6529 will be renamed to Wjk nduvpbl</li>
+<li>Leaf label for node 6321 will be renamed to Zbumxj osiapem</li>
+<li>A internal branch will be renamed to Clade A (clade name displayed in mouseover popups)</li>
+<li>A internal branch will be renamed to Clade B (clade name displayed in mouseover popups)</li>
+<li>A internal branch will be renamed to Clade C (clade name displayed in mouseover popups)</li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;Baq hxzgs&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="s1">&#39;Wjk nduvpbl&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="s1">&#39;Zbumxj osiapem&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;5784|7550&#39;</span><span class="p">,</span> <span class="s1">&#39;Clade A&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;7396|2154&#39;</span><span class="p">,</span> <span class="s1">&#39;Clade B&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;2055|539&#39;</span><span class="p">,</span> <span class="s1">&#39;Clade C&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.line">
+<code class="descname">line</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='line'</em>, <em>color='#ff0000'</em>, <em>line_colors=''</em>, <em>axis_x=''</em>, <em>axis_y=''</em>, <em>outfile='line.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles line chart visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 3 elements which define node id and 2 or more points associated.
+For each individual point, a string consisting of X and Y values separated by a vertical line. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_linechart_template.txt">dataset_linechart_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, X1|Y1 X2|Y2 X3|Y3, …).</p>
+<p>data = [(8518, ‘-10|-15’, ‘0|0’, ‘5|3’), (‘6529’, ‘0|0’, ‘10|5’, ‘20|10’, ‘30|15’)]</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">DATASET_LINECHART is not supported in batch mode yet, this method can be used to generated the
+data file for line chart. When you try to upload the data file to the ITOL server, a warning will be
+issued. If you try to use the <code class="docutils literal notranslate"><span class="pre">.download()</span></code> method to download data, an error (Invalid SVG received from
+headless browser) will be logged. The purpose of this method is mainly for programmatically generating
+the data file for lines. In future, if batch access of DATASET_LINECHART is allowed, then you can feel
+free to use the full function of this method.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.mbar">
+<code class="descname">mbar</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='mbar'</em>, <em>color='#ff0000'</em>, <em>field_colors='#ff0000</em>, <em>#00ff00</em>, <em>#0000ff'</em>, <em>field_labels='f1</em>, <em>f2</em>, <em>f3'</em>, <em>dataset_scale=''</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='mbar.txt'</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.mbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles multi-value bar chart.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 3 elements which define node id and multiple numeric value which
+are displayed as stocked or aligned bar chart. See <a class="reference external" href="http://itol.embl.de/help/dataset_multibar_template.txt">dataset_multibar_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">230</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="p">(</span><span class="mi">2055</span><span class="p">,</span> <span class="mi">403</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;9151&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">350</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.pie">
+<code class="descname">pie</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='pie'</em>, <em>color='#ff0000'</em>, <em>field_colors='#ff0000</em>, <em>#00ff00</em>, <em>#0000ff'</em>, <em>field_labels='f1</em>, <em>f2</em>, <em>f3'</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='pie.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.pie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles pie chart.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each tuples or list should have at least 5 elements which define node id, position, radius, and multiple numeric
+value (at least 2 values) which are displayed as a pie chart directly on the branch, or outside the tree.
+See <a class="reference external" href="http://itol.embl.de/help/dataset_piechart_template.txt">dataset_piechart_template.txt</a> for more details.</p>
+<ul class="simple">
+<li>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, position, radius, value1, value2, value3…).</li>
+<li>The field_labels define label name of each field</li>
+<li>The filed_colors define label color of each field</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">35</span><span class="p">)]</span>
+<span class="n">field_labels</span> <span class="o">=</span> <span class="s1">&#39;A,B,C&#39;</span>
+<span class="n">field_colors</span> <span class="o">=</span> <span class="s1">&#39;#ff0000,#00ff00,#ffff00&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.popup">
+<code class="descname">popup</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>outfile='popup.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.popup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles custom text/html which will be displayed in mouse-over popups for nodes/leaves.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple should have 2 elements which define node id and label content. Content can be plain text or any
+valid HTML (including links to external web sites, or IMG tags pointing to external images). Internal tree
+nodes can be specified using IDs directly, or using the ‘last common ancestor’ method described in <a class="reference external" href="http://itol.embl.de/help.cgi">ITOL
+help page</a>. See <a class="reference external" href="http://itol.embl.de/help/popup_info_template.txt">popup_info_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">popups</span></code> shows a general data structure and these
+data will set two popup items:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s1">&#39;This is the popup title,&lt;h1&gt;Some header&lt;/h1&gt;&lt;p&gt;Information comes here&lt;/p&gt;&#39;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s1">&#39;&lt;img src=&quot;https://images-na.ssl-images-amazon.com/images/I/91gyeWnRc2L._SL1500_.jpg&quot;/&gt;&#39;</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="s1">&#39;Zbumxj osiapem, info popup,&lt;h1&gt;Homo sapiens&lt;/h1&gt;&lt;p style=&quot;color:blue&quot;&gt;More info at&#39;</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="s1">&#39;&lt;a target=&quot;_blank&quot; href=&quot;https://en.wikipedia.org/wiki/Binomial_nomenclature&quot;&gt; WiKi&lt;/a&gt;&lt;/p&gt;&#39;</span>
+
+<span class="n">popups</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;6304|7550&#39;</span><span class="p">,</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">),</span> <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.sbar">
+<code class="descname">sbar</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='sbar'</em>, <em>color='#ff0000'</em>, <em>dataset_scale=''</em>, <em>legend_title=''</em>, <em>legend_shapes=''</em>, <em>legend_colors=''</em>, <em>legend_labels=''</em>, <em>outfile='sbar.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.sbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles simple bar chart.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have 2 elements which define node id and a single numeric value which is
+displayed as a bar outside the tree. Internal tree nodes can be specified using IDs directly, or using the
+‘last common ancestor’ method described in <a class="reference external" href="http://itol.embl.de/help.cgi">ITOL help page</a>. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_simplebar_template.txt">dataset_simplebar_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">330</span><span class="p">),</span> <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">2055</span><span class="p">,</span> <span class="mi">403</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;9151&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;1921&#39;</span><span class="p">,</span> <span class="mi">360</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.shape">
+<code class="descname">shape</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='shape'</em>, <em>color='#ff0000'</em>, <em>field_colors='#ff0000</em>, <em>#00ff00</em>, <em>#0000ff'</em>, <em>field_labels='f1</em>, <em>f2</em>, <em>f3'</em>, <em>outfile='shape.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles external shapes visualization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.
+Each inner tuple or list should have at least 2 elements which define node id and multiple values. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_external_shapes_template.txt">dataset_external_shapes_template.txt</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID1, length, D1, D2, D3, …):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.strip">
+<code class="descname">strip</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='strip'</em>, <em>color='#ff0000'</em>, <em>color_branch=0</em>, <em>legend_title=''</em>, <em>legend_shapes=0</em>, <em>legend_colors=0</em>, <em>legend_labels=0</em>, <em>outfile='strip.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.strip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles colored strips.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 2 elements which define node id(s) and color, possible third
+element should be a string (string is displayed in the mouse-over popups).
+Internal tree nodes can be specified using IDs directly, or using the ‘last common ancestor’ method described in
+<a class="reference external" href="http://itol.embl.de/help.cgi">ITOL help page</a>. See
+<a class="reference external" href="http://itol.embl.de/help/dataset_color_strip_template.txt">dataset_color_strip_template.txt</a> for details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, color,
+&lt;label&gt;):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span> <span class="s1">&#39;Baq hxzgs&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="s1">&#39;#ff8000&#39;</span><span class="p">,</span> <span class="s1">&#39;Zbumxj osiapem&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.symbol">
+<code class="descname">symbol</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='symbol'</em>, <em>color='#ff0000'</em>, <em>legend_title=''</em>, <em>legend_shapes=0</em>, <em>legend_colors=0</em>, <em>legend_labels=0</em>, <em>outfile='symbol.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handling external shapes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples.
+Each inner tuple or list should have at least 6 elements which define node id, symbol, size, color, fill,
+position, may or may not followed by an additional element label.
+See <a class="reference external" href="http://itol.embl.de/help/dataset_symbols_template.txt">dataset_symbols_template.txt</a> for more details.</td>
+</tr>
+</tbody>
+</table>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, symbol,
+size, color, fill, position, label):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;#ff0000&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;#ffff00&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.text">
+<code class="descname">text</code><span class="sig-paren">(</span><em>data</em>, <em>separator='comma'</em>, <em>dataset_label='text'</em>, <em>color='#ff0000'</em>, <em>outfile='text.txt'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles text labels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – list, a nested list consisting of tuples or lists.</td>
+</tr>
+</tbody>
+</table>
+<p>Each inner tuple or list should have at least 2 elements which define node id and a label, possible additional
+elements can be tailed in the order of position, color, style, size factor, and rotation.
+See <a class="reference external" href="http://itol.embl.de/help/dataset_text_template.txt">dataset_text_template.txt</a> for more details.</p>
+<p>The nested list <code class="docutils literal notranslate"><span class="pre">data</span></code> shows a general data structure (ID, label,
+position, color, style, size_factor, rotation):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8518</span><span class="p">,</span> <span class="s1">&#39;Baq hxzgs&#39;</span><span class="p">,</span> <span class="s1">&#39;-1&#39;</span><span class="p">,</span> <span class="s1">&#39;#0000ff&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;6529&#39;</span><span class="p">,</span> <span class="s1">&#39;Wjk nduvpbl&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;#00ff00&#39;</span><span class="p">,</span> <span class="s1">&#39;italic&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">6321</span><span class="p">,</span> <span class="s1">&#39;Zbumxj osiapem&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;#ff8000&#39;</span><span class="p">,</span> <span class="s1">&#39;bold-italic&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="iTOL.iTOL.TOL.upload">
+<code class="descname">upload</code><span class="sig-paren">(</span><em>tn=''</em>, <em>uid=''</em>, <em>pn=''</em>, <em>td=''</em>, <em>folder=False</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL.TOL.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zip tree file and all notation files (text files have .txt extension) inside work directory into a zip file
+and upload the zip file to ITOL server (batch upload).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tn</strong> – str, if not provided, the basename of the tree file will be used instead.</li>
+<li><strong>uid</strong> – str, your upload ID, which is generated when you enable batch uploading in your account. If an
+uploadID is not provided, the tree will not be associated with any account, and will be deleted after 30 days.</li>
+<li><strong>pn</strong> – str, required if ID is specified, case sensitive, and should be unique in your account.</li>
+<li><strong>td</strong> – str, description of your tree, ignored if ID is not specified.</li>
+<li><strong>folder</strong> – bool, whether zip all text files (must have .txt extension) in the work directory or not. If
+set to True, zip all text files in the folder, otherwise only zip and upload the tree file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A new ZIP archive (named iTOL.tree.zip) will be automatically created in work directory every time you
+call this method if tfile was provided via argument <code class="docutils literal notranslate"><span class="pre">tfile</span></code>. If a ZIP file was provided via
+argument <code class="docutils literal notranslate"><span class="pre">zfile</span></code>, the ZIP file will not be touched but directly upload to ITOL server.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="iTOL.iTOL._args">
+<code class="descclassname">iTOL.iTOL.</code><code class="descname">_args</code><span class="sig-paren">(</span><em>args</em>, <em>data</em>, <em>separator</em>, <em>outfile</em>, <em>tag</em>, <em>wd</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL._args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private function handles arguments parse and writing config file (user should not use this functionary directly).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> – dict, all local keyword arguments.</li>
+<li><strong>data</strong> – nested tuple or a list. Each inner element should have at least 3 elements which define the node,
+type and color.</li>
+<li><strong>separator</strong> – <p>the separator which is used to delimit the setting text (tab, space or comma), default: comma.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not like writing iTOL setting file, the name of separator here is case insensitive. You should always keep
+in mind that depend on your data, separator does matter.</p>
+</div>
+</li>
+<li><strong>outfile</strong> – str, path of the output file.</li>
+<li><strong>tag</strong> – string, name tag of the config file.</li>
+<li><strong>wd</strong> – str, path of the work directory.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str, formatted text.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="iTOL.iTOL._sd">
+<code class="descclassname">iTOL.iTOL.</code><code class="descname">_sd</code><span class="sig-paren">(</span><em>data</em>, <em>separator</em><span class="sig-paren">)</span><a class="headerlink" href="#iTOL.iTOL._sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private function for handles separator and data block (user should not use this functionary directly).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – nested tuple or list. Each inner element should have at least 3 elements which define the node,
+type and color.</li>
+<li><strong>separator</strong> – the separator which is used to delimit the setting text (tab, space or comma), default: comma.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike writing iTOL setting file manually, the name of the separator here is case insensitive. However, you
+should always keep in mind that depend on your data, separator does matter.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">formatted string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, FEI YUAN.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'alpha',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
