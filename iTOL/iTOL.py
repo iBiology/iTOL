@@ -31,7 +31,7 @@ warn, info, error = logger.warning, logger.info, logger.error
 
 
 DELIMITER = {'TAB': '\t', 'SPACE': ' ', 'COMMA': ','}
-UPLOAD_URL = "http://itol.embl.de/batch_uploader.cgi"
+UPLOAD_URL = "https://itol.embl.de/batch_uploader.cgi"
 DOWNLOAD_URL = "http://itol.embl.de/batch_downloader.cgi"
 s1 = 'A=#d2d0c9,M=#d2d0c9,I=#d2d0c9,L=#d2d0c9,V=#d2d0c9,P=#746f69,G=#746f69,C=#746f69,F=#d0ad16,Y=#d0ad16'
 s2 = 'W=#d0ad16,S=#34acfb,T=#34acfb,N=#34acfb,Q=#34acfb,R=#34fb54,K=#34fb54,H=#34fb54,D=#fb4034,E=#fb4034'
@@ -96,7 +96,10 @@ def _args(args, data, separator, outfile, tag, wd):
         args.pop(arg)
 
     data_block, sep, delimiter = _sd(data, separator)
-    setting_block = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args.items() if v])
+    setting_block = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args.items() if v and k!='kwargs'])
+    if 'kwargs' in args:
+    	setting_block2 = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args['kwargs'].items() if v])
+    	setting_block = setting_block + '\n' + setting_block2
 
     if not isinstance(tag, str):
         raise ValueError('Argument tag should be a string!')
@@ -337,7 +340,7 @@ class TOL(object):
     def mbar(self, data, separator='comma', dataset_label='mbar', color='#ff0000',
              field_colors='#ff0000,#00ff00,#0000ff', field_labels='f1,f2,f3',
              dataset_scale='', legend_title='', legend_shapes='', legend_colors='', legend_labels='',
-             outfile='mbar.txt'):
+             outfile='mbar.txt', **kwargs):
         
 
         """
