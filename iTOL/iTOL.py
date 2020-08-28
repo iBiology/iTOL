@@ -32,7 +32,7 @@ warn, info, error = logger.warning, logger.info, logger.error
 
 DELIMITER = {'TAB': '\t', 'SPACE': ' ', 'COMMA': ','}
 UPLOAD_URL = "https://itol.embl.de/batch_uploader.cgi"
-DOWNLOAD_URL = "http://itol.embl.de/batch_downloader.cgi"
+DOWNLOAD_URL = "https://itol.embl.de/batch_downloader.cgi"
 s1 = 'A=#d2d0c9,M=#d2d0c9,I=#d2d0c9,L=#d2d0c9,V=#d2d0c9,P=#746f69,G=#746f69,C=#746f69,F=#d0ad16,Y=#d0ad16'
 s2 = 'W=#d0ad16,S=#34acfb,T=#34acfb,N=#34acfb,Q=#34acfb,R=#34fb54,K=#34fb54,H=#34fb54,D=#fb4034,E=#fb4034'
 COLOR_SCHEME = 'CUSTOM_COLOR_SCHEME,COLOR_SCHEME,{},{}'.format(s1, s2)
@@ -98,8 +98,8 @@ def _args(args, data, separator, outfile, tag, wd):
     data_block, sep, delimiter = _sd(data, separator)
     setting_block = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args.items() if v and k!='kwargs'])
     if 'kwargs' in args:
-    	setting_block2 = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args['kwargs'].items() if v])
-    	setting_block = setting_block + '\n' + setting_block2
+        setting_block2 = '\n'.join([DELIMITER[delimiter].join([k.upper(), str(v)]) for k, v in args['kwargs'].items() if v])
+        setting_block = setting_block + '\n' + setting_block2
 
     if not isinstance(tag, str):
         raise ValueError('Argument tag should be a string!')
@@ -342,7 +342,6 @@ class TOL(object):
              dataset_scale='', legend_title='', legend_shapes='', legend_colors='', legend_labels='',
              outfile='mbar.txt', **kwargs):
         
-
         """
         Handles multi-value bar chart.
 
